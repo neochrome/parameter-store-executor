@@ -1,0 +1,10 @@
+version: 2.0
+shards:
+  aws-credentials:
+    git: https://github.com/y2k2mt/aws-credentials.cr.git
+    version: 0.5.0+git.commit.ff5ed86abd3cfb810ea5eca9178ba2c34c7b8892
+
+  awscr-signer:
+    git: https://github.com/taylorfinnell/awscr-signer.git
+    version: 0.8.1
+
