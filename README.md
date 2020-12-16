@@ -1,7 +1,7 @@
 # Parameter Store Executor
 
 Fetches parameters recursively at PARAMETER_PATHs from AWS SSM Parameter Store.  
-Then executes CMD with the parameters transformed into ENVIRONMENT variables.
+Then executes CMD with the parameters transformed into ENV variables.
 
 The parameter names will be transformed as:
  - Make relative to the corresponding PARAMETER_PATH
@@ -9,6 +9,10 @@ The parameter names will be transformed as:
  - Make UPPERCASE
 
 Conflicting parameters will resolve to the value of the last one found.
+Any existing ENV variables (unless --clean-env is specified) will be passed
+along and takes precedence over parameters with the same name - to allow
+overriding specific parameters (e.g in development environment).
+
 ```gherkin
 Given the following parameters:
 | name      | value |
@@ -17,7 +21,7 @@ Given the following parameters:
 
 When requesting: [/, /one, /two]
 
-Then the following ENVIRONMENT variables will be available:
+Then the following ENV variables will be available:
 | name     | value |
 | ONE_TEST | 1     |
 | TWO_TEST | 2     |

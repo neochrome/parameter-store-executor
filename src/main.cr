@@ -6,37 +6,44 @@ Log.setup_from_env default_level: :error
 
 paths = [] of String
 cmd = [] of String
-clear_env = false
+clean_env = false
 
 OptionParser.parse do |parser|
   parser.on "-h", "--help", "Display this help and exit" do
-    puts "Parameter Store Executor"
-    puts ""
-    puts "usage: pse [OPTIONS] PARAMETER_PATH... [-- COMMAND [ARGS]]"
-    puts ""
-    puts "Fetches parameters recursively at PARAMETER_PATHs from AWS SSM Parameter Store."
-    puts "Then executes CMD with the parameters transformed into ENVIRONMENT variables."
-    puts ""
-    puts "Options:"
-    puts parser
-    puts ""
-    puts "The parameter names will be transformed as:"
-    puts " - Make relative to the corresponding PARAMETER_PATH"
-    puts " - Replace all '/' & '-' characters with '_'"
-    puts " - Make UPPERCASE"
-    puts ""
-    puts "Conflicting parameters will resolve to the value of the last one found."
-    puts ""
-    puts "Example:"
-    puts ""
-    puts "Given the parameters:"
-    puts " /one/test => '1'"
-    puts " /two/test => '2'"
-    puts "When requesting: / /one /two"
-    puts "Then the following ENVIRONMENT variables will be available:"
-    puts " ONE_TEST => '1'"
-    puts " TWO_TEST => '2'"
-    puts " TEST => '2'"
+    puts <<-HELP
+    Parameter Store Executor
+
+    usage: pse [OPTIONS] PARAMETER_PATH... [-- COMMAND [ARGS]]
+
+    Fetches parameters recursively at PARAMETER_PATHs from AWS SSM Parameter Store.
+    Then executes CMD with the parameters transformed into ENV variables.
+
+    Options:
+    #{parser}
+
+    The parameter names will be transformed as:
+     - Make relative to the corresponding PARAMETER_PATH
+     - Replace all '/' & '-' characters with '_'
+     - Make UPPERCASE
+
+    Conflicting parameters will resolve to the value of the last one found.
+    Any existing ENV variables (unless --clean-env is specified) will be passed
+    along and takes precedence over parameters with the same name - to allow
+    overriding specific parameters (e.g in development environment).
+
+    Given the following parameters:
+    | name      | value |
+    | /one/test | 1     |
+    | /two/test | 2     |
+
+    When requesting: [/, /one, /two]
+
+    Then the following ENV variables will be available:
+    | name     | value |
+    | ONE_TEST | 1     |
+    | TWO_TEST | 2     |
+    | TEST     | 2     |
+    HELP
     exit
   end
 
@@ -45,8 +52,8 @@ OptionParser.parse do |parser|
     exit
   end
 
-  parser.on "--clear-env", "Don't pass any existing ENV variables" do
-    clear_env = true
+  parser.on "--clean-env", "Don't pass any existing ENV variables" do
+    clean_env = true
   end
 
   parser.on "--log-level=LOG_LEVEL", "Set the logging level (#{Log::Severity.names.join("|")}) (default error)" do |level|
@@ -93,20 +100,20 @@ ssm = SSM.new provider.credentials
 require "./env_vars"
 begin
   env = paths.reduce(EnvVars.new) do |vars, path|
-    vars.merge EnvVars.from_parameters ssm.get_parameters_by_path path
+    parameters = ssm.get_parameters_by_path path
+    parameters.each do |p|
+      Log.info &.emit("parameter", name: p.name)
+    end
+    vars.merge EnvVars.from_parameters parameters
   end
-  # parameters = paths.map{|p|ssm.get_parameters_by_path p}.flatten
-  # parameters.each do |p|
-  #   Log.debug &.emit("parameter", name: p.name)
-  # end
-  # env = EnvVars.from_parameters parameters
+  env.merge! ENV.to_h unless clean_env
 
   if cmd.empty?
     env.each { |k, v| puts "#{k}=#{v}" }
     exit
   end
 
-  Process.exec(cmd.first, args: cmd.skip(1), env: env, clear_env: clear_env, shell: true)
+  Process.exec(cmd.first, args: cmd.skip(1), env: env, clear_env: true, shell: true)
 rescue ex
   Log.debug(exception: ex) { "" }
   Log.error { ex.message }
