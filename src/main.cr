@@ -9,8 +9,7 @@ cmd = [] of String
 clear_env = false
 
 OptionParser.parse do |parser|
-
-  parser.on "-h", "--help", "Display this help and exit", do
+  parser.on "-h", "--help", "Display this help and exit" do
     puts "Parameter Store Executor"
     puts ""
     puts "usage: pse [OPTIONS] PARAMETER_PATH... [-- COMMAND [ARGS]]"
@@ -78,7 +77,6 @@ OptionParser.parse do |parser|
     STDERR.puts "Try: pse --help"
     exit 1
   end
-
 end
 
 require "aws-credentials"
@@ -104,12 +102,11 @@ begin
   # env = EnvVars.from_parameters parameters
 
   if cmd.empty?
-    env.each { |k,v| puts "#{k}=#{v}" }
+    env.each { |k, v| puts "#{k}=#{v}" }
     exit
   end
 
   Process.exec(cmd.first, args: cmd.skip(1), env: env, clear_env: clear_env, shell: true)
-
 rescue ex
   Log.debug(exception: ex) { "" }
   Log.error { ex.message }

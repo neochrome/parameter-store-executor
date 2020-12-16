@@ -24,12 +24,15 @@ class SSM
     @SourceResult : String?
     @Type : String?
     @Version : Int64?
-    def initialize (@name, @value)
+
+    def initialize(@name, @value)
     end
-    def <=> (other : self)
+
+    def <=>(other : self)
       name <=> other.name
     end
-    def relative (path : String)
+
+    def relative(path : String)
       Parameter.new name: Path[name].relative_to(path).to_s, value: value
     end
   end
@@ -40,7 +43,8 @@ class SSM
     getter next_token : String?
     @[JSON::Field(key: "Parameters")]
     getter parameters = [] of SSM::Parameter
-    def initialize ()
+
+    def initialize
     end
   end
 
@@ -49,7 +53,7 @@ class SSM
     getter message : String
   end
 
-  def initialize (
+  def initialize(
     creds : Aws::Credentials::Credentials,
     @region : String = ENV["AWS_REGION"]
   )
@@ -70,8 +74,8 @@ class SSM
   private def send(operation, body)
     @client.post(
       "/",
-      headers: HTTP::Headers {
-        "User-Agent" => "pse",
+      headers: HTTP::Headers{
+        "User-Agent"   => "pse",
         "Content-Type" => "application/x-amz-json-1.1",
         "X-Amz-Target" => "AmazonSSM.#{operation}",
       },
@@ -79,7 +83,7 @@ class SSM
     )
   end
 
-  def get_parameters_by_path (path : String) : Array(Parameter)
+  def get_parameters_by_path(path : String) : Array(Parameter)
     parameters = [] of Parameter
     response = Response.new
     loop do
@@ -104,5 +108,4 @@ class SSM
     end
     parameters.sort.map &.relative path
   end
-
 end
