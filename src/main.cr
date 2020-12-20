@@ -109,7 +109,7 @@ begin
   env.merge! ENV.to_h unless clean_env
 
   if cmd.empty?
-    env.each { |k, v| puts "#{k}=#{v}" }
+    env.each { |k, v| puts "export #{k}=#{Process.quote(v)}" }
     exit
   end
 
