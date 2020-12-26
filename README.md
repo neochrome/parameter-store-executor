@@ -1,5 +1,4 @@
 # Parameter Store Executor
-
 Fetches parameters recursively at PARAMETER_PATHs from AWS SSM Parameter Store.  
 Then executes CMD with the parameters transformed into ENV variables.
 
@@ -35,19 +34,52 @@ Then the following ENV variables will be available:
 2. Run `shards build`
 3. Copy the executable found at `./bin/pse` to a location in your `$PATH`
 
+
 ### Released binary
-TODO: Describe
+Download the desired version from the [releases](https://github.com/neochrome/parameter-store-executor/releases) page.
+
 
 ## Usage
+When started, the tool will try to detect your current AWS credentials in the following order:
+1. From [ENV variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
+2. From [`~/.aws/credentials`](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+3. From the [instance metadata service](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) (useful on EC2 instances)
+
+### Basic command line usage
 ```sh
 pse /path/to/parameters -- env
 ```
+Use the `--help` option for further information on how to invoke the tool.
 
-### In Docker image
-TODO: Describe
+### With Docker
+The tool may be specified as the `ENTRYPOINT` of a docker image to allow for
+easy use of AWS SSM Parameter Store parameters with your application:
+```Dockerfile
+FROM alpine
+ARG pse_version=latest
+ADD https://github.com/neochrome/parameter-store-executor/releases/download/${pse_version}/pse /
+# -- or --
+# use the following for the latest released version
+ADD https://github.com/neochrome/parameter-store-executor/releases/latest/download/pse /
+# make the binary executable
+RUN chmod +x /pse
+
+# specify AWS_REGION unless passed from outside your container
+ENV AWS_REGION=eu-west-1
+
+# use an ENV var to specify the parameter(s) to use
+ENV PARAMETER_PATH=/some/path
+ENTRYPOINT /pse "$PARAMETER_PATH" -- env
+
+# -- or --
+# specify the parameter(s) directly in the ENTRYPOINT
+# and optionally use CMD
+ENTRYPOINT [ "/pse", "/some/path", "--" ]
+CMD ["env"]
+```
+
 
 ## Contributing
-
 1. Fork it (<https://github.com/neochrome/parameter-store-executor/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
