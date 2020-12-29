@@ -85,3 +85,13 @@ CMD ["env"]
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## Releasing
+To cut a new release, push a tag with the new (semver) version, e.g: `v1.2.3`.
+The tag should refer to a commit that has the `shard.yml` version and `./src/version.cr`
+updated with the new version. The script `./scripts/version` synchronizes this
+and also perform some checks:
+1. Detect uncommitted changes
+2. Check code formatting
+3. Passing tests
+4. Sanity check the new version

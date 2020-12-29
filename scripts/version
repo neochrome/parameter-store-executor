@@ -1,0 +1,97 @@
+#!/usr/bin/env crystal
+# vim: ft=crystal
+require "option_parser"
+require "semantic_version"
+require "yaml"
+require "./git"
+
+project_root = File.join(File.dirname(__FILE__), "..")
+shards_file = File.join(project_root, "shard.yml")
+version_file = File.join(project_root, "src", "version.cr")
+
+shard = (File.open(shards_file) do |file|
+  YAML.parse file
+end).as_h
+
+version = SemanticVersion.parse shard["version"].as_s
+new_version : SemanticVersion? = nil
+
+OptionParser.parse do |parser|
+  parser.banner = "Usage: version [<new version> | major | minor | patch]\n"
+
+  parser.on "major", "Bump major version and commit the changes" do
+    new_version = SemanticVersion.new major: version.major + 1, minor: 0, patch: 0
+  end
+
+  parser.on "minor", "Bump minor version and commit the changes" do
+    new_version = SemanticVersion.new major: version.major, minor: version.minor + 1, patch: 0
+  end
+
+  parser.on "patch", "Bump patch version and commit the changes" do
+    new_version = SemanticVersion.new major: version.major, minor: version.minor, patch: version.patch + 1
+  end
+
+  parser.on "--help", "Display this help and exit" do
+    puts parser
+    exit
+  end
+
+  parser.unknown_args do |args|
+    new_version = SemanticVersion.parse args.first unless args.empty?
+  end
+
+  parser.invalid_option do |option|
+    STDERR.puts "Unknown option: #{option}"
+    STDERR.puts "Try: pse --help"
+    exit 1
+  end
+
+  parser.missing_option do |option|
+    STDERR.puts "Missing value for option: #{option}"
+    STDERR.puts "Try: pse --help"
+    exit 1
+  end
+end
+
+if (v = new_version)
+  git = Git.new project_root
+
+  puts ":: check uncommitted files"
+  if git.uncommitted?
+    puts "Uncommitted changes detected, please commit and run again."
+    exit 1
+  end
+
+  puts ":: check formatting"
+  unless Process.run("crystal", args: ["tool", "format", "--check"]).success?
+    puts "Code needs formatting, run: crystal tool format"
+    exit 1
+  end
+
+  puts ":: run tests"
+  unless Process.run("crystal", args: ["spec"], output: STDOUT).success?
+    exit 1
+  end
+
+  puts ":: version sanity check"
+  if v <= version
+    puts "New version #{new_version} must be greater than current #{version}"
+    exit 1
+  end
+
+  puts ":: update shard with new version"
+  shard[YAML::Any.new "version"] = YAML::Any.new v.to_s
+  File.open(shards_file, "w") { |f| shard.to_yaml f }
+
+  puts ":: update version constant with new version"
+  File.open(version_file, "w") { |f| f.puts "VERSION = \"#{v}\"" }
+
+  puts ":: add and commit the changes"
+  git.add shards_file, version_file
+  git.commit "v#{v}"
+
+  puts ":: tag the commit"
+  git.tag "v#{v}"
+else
+  puts version
+end
