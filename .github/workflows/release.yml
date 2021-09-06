@@ -1,17 +1,17 @@
 on:
   push:
-  pull_request:
-    branches:
-    - master
+    tags:
+      - 'v*.*.*'
 
-name: CI
+name: Release
 
 jobs:
 
-  ci:
+  release:
     runs-on: ubuntu-latest
     container: crystallang/crystal:1.1.1-alpine-build
     steps:
+
       - uses: actions/checkout@v2
 
       - name: install shards
@@ -21,4 +21,10 @@ jobs:
         run: crystal spec
 
       - name: build
-        run: shards build
+        run: shards build --static --release --no-debug
+
+      - name: create release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: ./bin/pse
