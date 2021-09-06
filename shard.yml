@@ -1,21 +1,15 @@
+---
 name: parameter-store-executor
-version: 0.1.0
-
+version: 0.2.0
 license: Unlicense
-
 authors:
-  - Johan Stenqvist <johan@stenqvist.net>
-
+- Johan Stenqvist <johan@stenqvist.net>
 targets:
   pse:
     main: src/main.cr
-
 crystal: 0.35.1
-
 dependencies:
-
   aws-credentials:
     github: y2k2mt/aws-credentials.cr
-
   awscr-signer:
     github: taylorfinnell/awscr-signer
