@@ -39,6 +39,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ github.ref }}
+          target_commitish: ${{ github.ref }}
           name: Release ${{ github.ref }}
           files: ./bin/pse
