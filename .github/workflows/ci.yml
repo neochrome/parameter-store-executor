@@ -26,6 +26,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     container: crystallang/crystal:1.1.1-alpine-build
+    needs: build-and-test
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     steps:
 
