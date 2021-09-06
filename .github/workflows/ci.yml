@@ -1,8 +1,8 @@
 on:
   push:
+    tags-ignore:
+      - '*'
   pull_request:
-    branches:
-    - master
 
 name: CI
 
