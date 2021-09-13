@@ -52,15 +52,41 @@ pse /path/to/parameters -- env
 Use the `--help` option for further information on how to invoke the tool.
 
 ### With Docker
+
+#### Install the binary release from GitHub
+```Dockerfile
+FROM alpine
+
+# install a specific binary release
+ARG pse_version=latest
+ADD https://github.com/neochrome/parameter-store-executor/releases/download/${pse_version}/pse /
+# -- or --
+# use the latest released version
+ADD https://github.com/neochrome/parameter-store-executor/releases/latest/download/pse /
+```
+
+#### Install the binary release from Docker Hub
+The binary release is additionally pushed to Docker Hub and may be installed using a
+multi-stage docker build like so:
+
+```Dockerfile
+# install a specific binary release
+FROM neochrome/parameter-store-executor:0.2.0 as release
+# -- or --
+# use the latest version
+FROM neochrome/parameter-store-executor:latest as release
+
+COPY --from=release /pse /
+```
+
+#### Entrypoint
 The tool may be specified as the `ENTRYPOINT` of a docker image to allow for
 easy use of AWS SSM Parameter Store parameters with your application:
 ```Dockerfile
 FROM alpine
-ARG pse_version=latest
-ADD https://github.com/neochrome/parameter-store-executor/releases/download/${pse_version}/pse /
-# -- or --
-# use the following for the latest released version
-ADD https://github.com/neochrome/parameter-store-executor/releases/latest/download/pse /
+
+# install the binary release using one of the methods above
+
 # make the binary executable
 RUN chmod +x /pse
 
@@ -70,7 +96,6 @@ ENV AWS_REGION=eu-west-1
 # use an ENV var to specify the parameter(s) to use
 ENV PARAMETER_PATH=/some/path
 ENTRYPOINT /pse "$PARAMETER_PATH" -- env
-
 # -- or --
 # specify the parameter(s) directly in the ENTRYPOINT
 # and optionally use CMD
