@@ -50,6 +50,7 @@ class SSM
 
   struct Error
     include JSON::Serializable
+    @[JSON::Field(key: "Message")]
     getter message : String
   end
 
