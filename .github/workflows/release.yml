@@ -12,7 +12,7 @@ jobs:
     container: crystallang/crystal:1.1.1-alpine-build
     steps:
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: install shards
         run: shards install
@@ -43,7 +43,7 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: restore artifact
         uses: actions/download-artifact@v2
