@@ -2,8 +2,8 @@ on:
   push:
     tags-ignore:
       - '*'
-    branches:
-      - '*'
+    branches-ignore:
+      - 'lab/**'
   pull_request:
 
 name: CI
