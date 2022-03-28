@@ -1,0 +1,16 @@
+[package]
+name = "parameter-store-executor"
+version = "0.2.2"
+edition = "2021"
+authors = ["Johan Stenqvist <johan@stenqvist.net>"]
+
+[[bin]]
+name = "pse"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "3.1.6", features = ["cargo"] }
+tokio = { version = "1.17.0", features = ["full"] }
+tokio-stream = "0.1.8"
+aws-config = "0.10.1"
+aws-sdk-ssm = "0.10.1"
