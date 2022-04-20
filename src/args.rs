@@ -10,7 +10,13 @@ fn is_a_parameter_path(v: &str) -> Result<(), String> {
 
 use clap::{arg, command, Arg, Command};
 
-pub fn parse() {
+pub struct Args {
+    pub paths: Vec<String>,
+    pub command: Vec<String>,
+    pub clean_env: bool,
+}
+
+pub fn parse() -> Args {
     let args = command!()
         .author("")
         .long_about(
@@ -90,11 +96,10 @@ pub fn parse() {
         )
         .get_matches();
 
-    let paths: Vec<&str> = args.values_of("paths").unwrap().collect();
-    println!("{:?}", paths);
-    let command: Vec<&str> = args.values_of("command").unwrap().collect();
-    println!("{:?}", command);
+    let paths: Vec<String> = args.values_of("paths").unwrap().map(String::from).collect();
+    let command: Vec<String> = args.values_of("command").unwrap().map(String::from).collect();
+    let clean_env: bool = args.is_present("clean-env");
 
-    std::process::exit(0);
+    Args { paths, command, clean_env }
 }
 
