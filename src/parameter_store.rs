@@ -1,16 +1,14 @@
+use aws_sdk_ssm::Client;
+use aws_sdk_ssm::output::GetParametersByPathOutput;
+
+use std::error::Error;
+use tokio_stream::StreamExt;
+
 #[derive(Debug)]
 pub struct Parameter {
     pub name: String,
     pub value: String,
 }
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ssm::{Client, Region};
-
-use aws_sdk_ssm::output::GetParametersByPathOutput as Output;
-
-use std::collections::HashMap;
-use std::error::Error;
-use tokio_stream::StreamExt;
 
 pub struct ParameterStore {
     client: Client,
@@ -18,15 +16,13 @@ pub struct ParameterStore {
 
 impl ParameterStore {
     pub async fn new() -> Self {
-        let region_provider =
-            RegionProviderChain::default_provider().or_else(Region::new("eu-west-1"));
-        let config = aws_config::from_env().load().await; //.region(region_provider).load().await;
+        let config = aws_config::from_env().load().await;
         let client = Client::new(&config);
         ParameterStore { client }
     }
 
     pub async fn list_parameters(&self, path: &str) -> Result<Vec<Parameter>, Box<dyn Error>> {
-        let result: Result<Vec<Output>, _> = self
+        let result: Result<Vec<GetParametersByPathOutput >, _> = self
             .client
             .get_parameters_by_path()
             .path(path)

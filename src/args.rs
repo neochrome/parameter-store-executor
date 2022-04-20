@@ -8,11 +8,13 @@ fn is_a_parameter_path(v: &str) -> Result<(), String> {
     }
 }
 
+use std::collections::VecDeque;
+
 use clap::{arg, command, Arg, Command};
 
 pub struct Args {
     pub paths: Vec<String>,
-    pub command: Vec<String>,
+    pub command: VecDeque<String>,
     pub clean_env: bool,
 }
 
@@ -97,7 +99,7 @@ pub fn parse() -> Args {
         .get_matches();
 
     let paths: Vec<String> = args.values_of("paths").unwrap().map(String::from).collect();
-    let command: Vec<String> = args.values_of("command").unwrap().map(String::from).collect();
+    let command: VecDeque<String> = args.values_of("command").unwrap().map(String::from).collect();
     let clean_env: bool = args.is_present("clean-env");
 
     Args { paths, command, clean_env }
