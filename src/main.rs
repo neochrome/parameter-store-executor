@@ -2,10 +2,12 @@ mod args;
 mod parameter_store;
 use parameter_store::ParameterStore;
 
-use std::{error::Error, collections::HashMap};
+use std::{collections::HashMap, error::Error};
 
-use std::process::Command;
 use std::os::unix::process::CommandExt;
+use std::process::Command;
+
+mod command_builder;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
@@ -21,7 +23,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     }
 
     if !args.clean_env {
-        for (name,value) in std::env::vars() {
+        for (name, value) in std::env::vars() {
             params.insert(name, value);
         }
     }
