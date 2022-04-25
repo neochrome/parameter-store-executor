@@ -39,7 +39,7 @@ impl ParameterStore {
                     .iter()
                     .flat_map(|o| o.parameters().unwrap())
                     .map(|p| Parameter {
-                        name: transform_name(p.name().unwrap(), path),
+                        name: make_relative(p.name().unwrap(), path),
                         value: String::from(p.value().unwrap()),
                     })
                     .collect();
@@ -53,15 +53,8 @@ fn make_relative(name: &str, path: &str) -> String {
     if name.starts_with(path) {
         make_relative(&name.replacen(path, "", 1), "/")
     } else {
-        String::from(name)
+        name.to_string()
     }
-}
-
-fn transform_name(name: &str, path: &str) -> String {
-    make_relative(name, path)
-    .to_uppercase()
-    .replace("-", "_")
-    .replace("/", "_")
 }
 
 #[cfg(test)]
@@ -72,18 +65,8 @@ mod tests {
         use super::*;
 
         #[test]
-        fn to_upper() {
-            assert_eq!(transform_name("/something", "/"), "SOMETHING");
-        }
-
-        #[test]
-        fn to_snake() {
-            assert_eq!(transform_name("/a-value", "/"), "A_VALUE");
-        }
-
-        #[test]
-        fn makes_relative() {
-            assert_eq!(transform_name("/a/path/to/a/value", "/a/path/to"), "A_VALUE");
+        fn strips_prefix() {
+            assert_eq!(make_relative("/a/path/to/a/value", "/a/path/to"), "a/value");
         }
     }
 }
