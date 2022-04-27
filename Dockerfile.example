@@ -1,0 +1,5 @@
+FROM alpine
+COPY --from=neochrome/parameter-store-executor:latest /pse /
+RUN chmod +x /pse
+ENTRYPOINT ["/pse"]
+CMD [""]
