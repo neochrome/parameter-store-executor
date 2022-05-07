@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: 'daily'
 
-  - package-ecosystem: 'docker'
+  - package-ecosystem: 'cargo'
     directory: '/'
     schedule:
       interval: 'daily'

@@ -1,0 +1,115 @@
+on:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: write
+
+name: Publish
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - name: pse-x86_64-darwin
+            target: x86_64-apple-darwin
+          - name: pse-x86_64-linux
+            target: x86_64-unknown-linux-musl
+          
+          # - arm-unknown-linux-musleabi
+          # - armv5te-unknown-linux-musleabi
+          # - armv7-unknown-linux-musleabi
+          # - x86_64-pc-windows-gnu
+          # - x86_64-pc-windows-msvc
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: ${{ matrix.target }}
+          override: true
+
+      - name: build
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --release
+
+      - name: rename artifact
+        run: cp ./target/${{ matrix.target }}/release/pse ./target/${{ matrix.name }}
+
+      - name: publish artifact
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload ${{ github.event.release.tag_name }} ./target/${{ matrix.name }}
+
+  # package-docker:
+  #   runs-on: ubuntu-latest
+  #   needs: release
+  #   env:
+  #     REPO: neochrome/parameter-store-executor
+  #
+  #   steps:
+  #
+  #     - uses: actions/checkout@v2
+  #
+  #     - name: restore artifact
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: build
+  #         path: ./bin
+  #
+  #     - name: build args
+  #       id: build-args
+  #       run: |
+  #         VERSION="${GITHUB_REF#refs/tags/}"
+  #         if [[ $VERSION =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+  #           MAJOR="${BASH_REMATCH[1]}"
+  #           MINOR="${BASH_REMATCH[2]}"
+  #           PATCH="${BASH_REMATCH[3]}"
+  #           TAGS="${REPO}:latest"
+  #           TAGS="${TAGS},${REPO}:${MAJOR}"
+  #           TAGS="${TAGS},${REPO}:${MAJOR}.${MINOR}"
+  #           TAGS="${TAGS},${REPO}:${MAJOR}.${MINOR}.${PATCH}"
+  #         else
+  #           echo "Bad version detected: ${VERSION}"
+  #           exit 1
+  #         fi
+  #         echo "::set-output name=version::${VERSION}"
+  #         echo "::set-output name=tags::${TAGS}"
+  #         echo "::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+  #
+  #     - name: Login to Docker Hub
+  #       uses: docker/login-action@v1.14.1
+  #       with:
+  #         username: ${{ secrets.DOCKER_HUB_USERNAME }}
+  #         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  #
+  #     - name: Build and push
+  #       uses: docker/build-push-action@v2.10.0
+  #       with:
+  #         context: .
+  #         file: ./Dockerfile.release
+  #         push: true
+  #         tags: ${{ steps.build-args.outputs.tags }}
+  #         labels: |
+  #           version=${{ steps.build-args.outputs.version }}
+  #           org.opencontainers.image.version=${{ steps.build-args.outputs.version }}
+  #           org.opencontainers.image.created=${{ steps.prep.outputs.created }}
+  #           org.opencontainers.image.title=${{ github.event.repository.name }}
+  #           org.opencontainers.image.description=${{ github.event.repository.description }}
+  #           org.opencontainers.image.url=${{ github.event.repository.html_url }}
+  #           org.opencontainers.image.source=${{ github.event.repository.clone_url }}
+  #           org.opencontainers.image.revision=${{ github.sha }}
+  #           org.opencontainers.image.licenses=${{ github.event.repository.license.spdx_id }}

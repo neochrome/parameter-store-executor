@@ -158,16 +158,10 @@ services:
 ## Contributing
 1. Fork it (<https://github.com/neochrome/parameter-store-executor/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
+3. Commit your changes (`git commit -am 'feat: some new feature'`),
+   make sure to use <https://www.conventionalcommits.org/>.
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
 ## Releasing
-To cut a new release, push a tag with the new (semver) version, e.g: `v1.2.3`.
-The tag should refer to a commit that has the `shard.yml` version and `./src/version.cr`
-updated with the new version. The script `./scripts/version` synchronizes this
-and also perform some checks:
-1. Detect uncommitted changes
-2. Check code formatting
-3. Passing tests
-4. Sanity check the new version
+Releases are automated using [Release Please](https://github.com/apps/release-please).

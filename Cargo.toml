@@ -8,6 +8,9 @@ authors = ["Johan Stenqvist <johan@stenqvist.net>"]
 name = "pse"
 path = "src/main.rs"
 
+[profile.release]
+strip = true
+
 [dependencies]
 clap = { version = "3.1.6", features = ["cargo"] }
 tokio = { version = "1.17.0", features = ["full"] }
