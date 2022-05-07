@@ -14,13 +14,15 @@ use clap::{arg, command, Arg, Command};
 
 pub struct Args {
     pub paths: Vec<String>,
-    pub program: Vec<String>,
+    pub program: String,
+    pub program_args: Vec<String>,
     pub clean_env: bool,
 }
 
 pub fn parse() -> Args {
     let args = command!()
         .author("")
+        .term_width(80)
         .long_about(
             "Fetches parameters recursively from AWS SSM Parameter Store at the given PARAMETER_PATH(s).\n\
             Then executes PROGRAM with the parameters supplied as ENV variables."
@@ -36,7 +38,7 @@ pub fn parse() -> Args {
                 .value_name("PARAMETER_PATH")
                 .help("Path(s) into AWS SSM Parameter Store")
                 .long_help(
-                    "Path(s) into AWS SSM Parameter Store, must begin with a '/'.\n\
+                    "Path(s) into AWS SSM Parameter Store, must begin with a '/'\n\
                     \n\
                     E.g: /my-app/secrets",
                 )
@@ -48,9 +50,9 @@ pub fn parse() -> Args {
         .arg(
             Arg::new("program")
                 .value_name("PROGRAM [ARG]...")
-                .help("The PROGRAM to execute.")
+                .help("The PROGRAM to execute")
                 .long_help(
-                    "The PROGRAM, with optional ARG(s), to execute with the parameters as ENV vars.",
+                    "The PROGRAM, with optional ARG(s), to execute",
                 )
                 .required(false)
                 .default_value("env")
@@ -59,14 +61,15 @@ pub fn parse() -> Args {
                 .last(true),
         )
         .after_long_help("\
-            The ENV variables will be named as the parameters, with the following transformation applied:\n \
-            - PARAMETER_PATH stripped from name\n\
-            - UPPERCASEd\n\
-            - All '/' and '-' characters replaced with '_'\n\
+            NOTES:\n\
+            Before passing the parameters to the PROGRAM, their names will be transformed as follows:\n\
+            - Remove PARAMETER_PATH prefix\n\
+            - Replace the symbols . (period), - (hyphen) and / (forward slash) with _ (underscore)\n\
+            - Made UPPERCASE\n\
             \n\
             Conflicting parameters will resolve to the value of the last one found.\n\
-            Any existing ENV variables (unless --clean-env is specified) will be passed\
-            along and takes precedence over parameters with the same name - to allow\
+            Any existing ENV variables (unless --clean-env is specified) will be passed \
+            along and takes precedence over parameters with the same name - to allow \
             overriding specific parameters (e.g in development environment).\n\
             \n\
             Example:\n\
@@ -91,24 +94,25 @@ pub fn parse() -> Args {
                | ONE_USER_NAME | user-1   | /                        |\n\
                | ONE_PASSWORD  | pass-1   | /                        |\n\
                | TWO_USER_NAME | user-2   | /                        |\n\
-               | TWO_PASSWORD  | from-env | /                        |\n\
+               | TWO_PASSWORD  | from-env | /, superceded by ENV var |\n\
                | USER_NAME     | user-2   | /one, superceded by /two |\n\
-               | PASSWORD      | pass-2   | /onw, superceded by /two |\n\
+               | PASSWORD      | pass-2   | /one, superceded by /two |\n\
             "
         )
         .get_matches();
 
     let paths = args.values_of("paths").unwrap().map(String::from).collect();
-    let program = args
+    let program_and_args = args
         .values_of("program")
         .unwrap()
         .map(String::from)
-        .collect();
+        .collect::<Vec<_>>();
     let clean_env = args.is_present("clean-env");
 
     Args {
         paths,
-        program,
+        program: program_and_args.first().unwrap().clone(),
+        program_args: program_and_args.into_iter().skip(1).collect(),
         clean_env,
     }
 }

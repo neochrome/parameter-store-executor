@@ -1,4 +1,3 @@
-use std::error::Error;
 use std::os::unix::process::CommandExt;
 use std::process::Command;
 
@@ -10,26 +9,32 @@ use parameter_store::ParameterStore;
 use program_env::ProgramEnv;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>> {
+async fn main() {
     let args = args::parse();
     let store = ParameterStore::new().await;
 
     let mut env = ProgramEnv::new();
     for path in args.paths {
-        let params = store.list_parameters(&path).await?;
-        env.params(&params);
+        let result = store.list_parameters(&path).await;
+        match result {
+            Ok(params) => env.params(&params),
+            Err(error) => {
+                eprintln!("[ERROR] Reading parameters at `{}`. {}", path, error);
+                std::process::exit(1);
+            },
+        };
     }
 
     if !args.clean_env {
-        env.vars(&std::env::vars().collect::<Vec<(String,String)>>());
+        env.vars(&std::env::vars().collect::<Vec<_>>());
     }
 
-    let cmd = args.program.first().unwrap();
-    Command::new(cmd)
+    let error = Command::new(&args.program)
         .env_clear()
-        .envs(env.to_map())
-        .args(args.program.iter().skip(1))
+        .envs(&env.to_map())
+        .args(&args.program_args)
         .exec();
 
-    return Ok(());
+    eprintln!("[ERROR] Executing `{}`. {}", &args.program, error.to_string());
+    std::process::exit(1);
 }

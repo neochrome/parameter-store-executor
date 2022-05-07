@@ -25,10 +25,7 @@ impl ProgramEnv {
     }
 
     pub fn vars(&mut self, vars: &[(String, String)]) -> &mut ProgramEnv {
-        self.vars = vars
-            .iter()
-            .map(|(name, value)| (name.to_ascii_uppercase(), value.to_string()))
-            .collect();
+        self.vars = vars.to_vec();
         self
     }
 
@@ -81,7 +78,7 @@ mod tests {
     }
 
     #[test]
-    fn multiple_param_sets_are_merged() {
+    fn multiple_sets_of_parameters_are_merged() {
         let env = ProgramEnv::new()
             .params(&params![("user-name", "user"), ("password", "pass")])
             .params(&params![("merged", "value1")])
@@ -98,7 +95,7 @@ mod tests {
     }
 
     #[test]
-    fn overlapping_param_sets_uses_last_value() {
+    fn overlapping_sets_of_parameters_uses_last_value() {
         let env = ProgramEnv::new()
             .params(&params![("user-name", "user"), ("password", "pass")])
             .params(&params![("password", "override")])
@@ -123,7 +120,7 @@ mod tests {
     }
 
     #[test]
-    fn env_takes_precedence_over_params() {
+    fn env_vars_takes_precedence_over_parameters() {
         let env = ProgramEnv::new()
             .vars(&vars![("PASSWORD", "from-env")])
             .params(&params![("user-name", "user"), ("password", "pass")])

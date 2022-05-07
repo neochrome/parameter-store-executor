@@ -1,7 +1,5 @@
-use aws_sdk_ssm::Client;
 use aws_sdk_ssm::output::GetParametersByPathOutput;
-
-use std::error::Error;
+use aws_sdk_ssm::Client;
 use tokio_stream::StreamExt;
 
 #[derive(Debug)]
@@ -21,8 +19,8 @@ impl ParameterStore {
         ParameterStore { client }
     }
 
-    pub async fn list_parameters(&self, path: &str) -> Result<Vec<Parameter>, Box<dyn Error>> {
-        let result: Result<Vec<GetParametersByPathOutput >, _> = self
+    pub async fn list_parameters(&self, path: &str) -> Result<Vec<Parameter>, String> {
+        let result: Result<Vec<GetParametersByPathOutput>, _> = self
             .client
             .get_parameters_by_path()
             .path(path)
@@ -33,13 +31,13 @@ impl ParameterStore {
             .collect()
             .await;
         match result {
-            Err(e) => Err(Box::new(e)),
+            Err(e) => Err(unescape(&e.to_string())),
             Ok(outputs) => {
                 let params = outputs
                     .iter()
                     .flat_map(|o| o.parameters().unwrap())
                     .map(|p| Parameter {
-                        name: make_relative(p.name().unwrap(), path),
+                        name: strip_prefix(p.name().unwrap(), path),
                         value: String::from(p.value().unwrap()),
                     })
                     .collect();
@@ -49,9 +47,13 @@ impl ParameterStore {
     }
 }
 
-fn make_relative(name: &str, path: &str) -> String {
+fn unescape(str: &str) -> String {
+    str.replace("\\", "").replace("\\\"", "\"")
+}
+
+fn strip_prefix(name: &str, path: &str) -> String {
     if name.starts_with(path) {
-        make_relative(&name.replacen(path, "", 1), "/")
+        strip_prefix(&name.replacen(path, "", 1), "/")
     } else {
         name.to_string()
     }
@@ -61,12 +63,9 @@ fn make_relative(name: &str, path: &str) -> String {
 mod tests {
     use super::*;
 
-    mod transform_name {
-        use super::*;
-
-        #[test]
-        fn strips_prefix() {
-            assert_eq!(make_relative("/a/path/to/a/value", "/a/path/to"), "a/value");
-        }
+    #[test]
+    fn strips_prefix() {
+        assert_eq!(strip_prefix("/a/path/to/a/value", "/a/path/to"), "a/value");
+        assert_eq!(strip_prefix("/a/b", "/a/b"), "");
     }
 }
