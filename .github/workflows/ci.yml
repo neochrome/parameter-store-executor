@@ -10,11 +10,21 @@ jobs:
 
   ci:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          # - arm-unknown-linux-musleabi
+          # - armv5te-unknown-linux-musleabi
+          # - armv7-unknown-linux-musleabi
+          - x86_64-apple-darwin
+          # - x86_64-pc-windows-gnu
+          # - x86_64-pc-windows-msvc
+          - x86_64-unknown-linux-musl
     steps:
       - uses: actions/checkout@v2
 
-      - name: build
-        run: cargo build --verbose
-
       - name: test
         run: cargo test
+
+      - name: build
+        run: cargo build --target ${{matrix.target}}
