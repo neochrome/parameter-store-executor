@@ -1,11 +1,14 @@
 # Parameter Store Executor
-Fetches parameters recursively at PARAMETER_PATHs from AWS SSM Parameter Store.  
-Then executes CMD with the parameters transformed into ENV variables.
+Fetches parameters recursively from AWS SSM Parameter Store at the given
+PARAMETER_PATH(s).
+Then executes PROGRAM with the parameters supplied as ENV variables.
 
-The parameter names will be transformed as:
- - Make relative to the corresponding PARAMETER_PATH
- - Replace all '/' & '-' characters with '_'
- - Make UPPERCASE
+Before passing the parameters to the PROGRAM, their names will be transformed as
+follows:
+- Remove PARAMETER_PATH prefix
+- Replace the symbols . (period), - (hyphen) and / (forward slash) with _
+(underscore)
+- Made UPPERCASE
 
 Conflicting parameters will resolve to the value of the last one found.
 Any existing ENV variables (unless --clean-env is specified) will be passed
@@ -14,25 +17,36 @@ overriding specific parameters (e.g in development environment).
 
 ```gherkin
 Given the following parameters:
-| name      | value |
-| /one/test | 1     |
-| /two/test | 2     |
+| name           | value  |
++----------------+--------+
+| /one/user-name | user-1 |
+| /one/password  | pass-1 |
+| /two/user-name | user-2 |
+| /two/password  | pass-2 |
+
+And the following existing ENV vars
+| name         | value    |
++--------------+----------+
+| TWO_PASSWORD | from-env |
 
 When requesting: [/, /one, /two]
 
 Then the following ENV variables will be available:
-| name     | value |
-| ONE_TEST | 1     |
-| TWO_TEST | 2     |
-| TEST     | 2     |
+| name          | value    | comment                  |
++---------------+----------+--------------------------+
+| ONE_USER_NAME | user-1   | /                        |
+| ONE_PASSWORD  | pass-1   | /                        |
+| TWO_USER_NAME | user-2   | /                        |
+| TWO_PASSWORD  | from-env | /, superceded by ENV var |
+| USER_NAME     | user-2   | /one, superceded by /two |
+| PASSWORD      | pass-2   | /one, superceded by /two |
 ```
 
 # Installation
 
-## Build from source
+## Build and install from source
 1. Clone the repo
-2. Run `shards build`
-3. Copy the executable found at `./bin/pse` to a location in your `$PATH`
+2. Run `cargo install --path .`
 
 
 ## Released binary
@@ -140,7 +154,6 @@ services:
     volumes:
       - $HOME/.aws/credentials:/root/.aws/credentials:ro
 ```
-
 
 ## Contributing
 1. Fork it (<https://github.com/neochrome/parameter-store-executor/fork>)
