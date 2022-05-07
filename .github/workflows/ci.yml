@@ -13,8 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: tests
+      - name: toolchain
         uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: tests
+        uses: actions-rs/cargo@v1
         with:
           command: test
 
@@ -42,7 +49,7 @@ jobs:
           override: true
 
       - name: build
-        uses: actions-rs/toolchain@v1
+        uses: actions-rs/cargo@v1
         with:
           use_cross: true
           command: build
