@@ -1,9 +1,7 @@
 on:
   push:
-    tags-ignore:
-      - '*'
-    branches-ignore:
-      - 'lab/**'
+    branches:
+      - 'lab/rust'
   pull_request:
 
 name: CI
@@ -12,15 +10,11 @@ jobs:
 
   ci:
     runs-on: ubuntu-latest
-    container: crystallang/crystal:1.1.1-alpine-build
     steps:
       - uses: actions/checkout@v2
 
-      - name: install shards
-        run: shards install
-
-      - name: run tests
-        run: crystal spec
-
       - name: build
-        run: shards build
+        run: cargo build --verbose
+
+      - name: test
+        run: cargo test
