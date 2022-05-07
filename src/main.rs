@@ -10,6 +10,7 @@ use program_env::ProgramEnv;
 
 #[tokio::main]
 async fn main() {
+    println!("test");
     let args = args::parse();
     let store = ParameterStore::new().await;
 
