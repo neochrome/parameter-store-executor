@@ -26,6 +26,7 @@ jobs:
           command: test
 
   build:
+    needs: verify
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -51,5 +52,5 @@ jobs:
       - name: build
         uses: actions-rs/cargo@v1
         with:
-          use_cross: true
+          use-cross: true
           command: build
