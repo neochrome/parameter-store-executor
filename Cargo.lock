@@ -772,7 +772,7 @@ checksum = "8e22443d1643a904602595ba1cd8f7d896afe56d26712531c5ff73a15b2fbf64"
 
 [[package]]
 name = "parameter-store-executor"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "aws-config",
  "aws-sdk-ssm",
