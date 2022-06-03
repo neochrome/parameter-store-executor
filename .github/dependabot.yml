@@ -5,8 +5,12 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
+    commit-message:
+      prefix: 'ci: '
 
   - package-ecosystem: 'cargo'
     directory: '/'
     schedule:
       interval: 'daily'
+    commit-message:
+      prefix: 'chore: '
