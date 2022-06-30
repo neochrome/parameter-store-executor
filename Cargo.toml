@@ -16,4 +16,4 @@ clap = { version = "3.1.18", features = ["cargo"] }
 tokio = { version = "1.19.2", features = ["full"] }
 tokio-stream = "0.1.9"
 aws-config = "0.14.0"
-aws-sdk-ssm = "0.14.0"
+aws-sdk-ssm = "0.15.0"
