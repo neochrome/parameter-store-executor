@@ -15,5 +15,5 @@ strip = true
 clap = { version = "3.2.8", features = ["cargo"] }
 tokio = { version = "1.19.2", features = ["full"] }
 tokio-stream = "0.1.9"
-aws-config = "0.14.0"
+aws-config = "0.15.0"
 aws-sdk-ssm = "0.15.0"
