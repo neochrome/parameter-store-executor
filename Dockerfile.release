@@ -1,3 +1,15 @@
-FROM scratch
+FROM busybox as prepare
+ARG TARGETPLATFORM
+COPY ./release/* /
+RUN \
+	case "${TARGETPLATFORM}" in \
+		"linux/amd64")  BIN=/pse-linux-amd64;; \
+		"linux/arm/v6") BIN=/pse-linux-arm6;; \
+		"linux/arm/v7") BIN=/pse-linux-arm7;; \
+	esac \
+	&& cp "${BIN}" /pse
+RUN chmod +x /pse
 
-COPY ./target/release/pse ./
+
+FROM scratch as release
+COPY --from=prepare /pse /
