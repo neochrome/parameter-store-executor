@@ -73,10 +73,10 @@ FROM alpine
 
 # install a specific binary release
 ARG pse_version=latest
-ADD https://github.com/neochrome/parameter-store-executor/releases/download/${pse_version}/pse /
+ADD https://github.com/neochrome/parameter-store-executor/releases/download/${pse_version}/pse-linux-amd64 /pse
 # -- or --
 # use the latest released version
-ADD https://github.com/neochrome/parameter-store-executor/releases/latest/download/pse /
+ADD https://github.com/neochrome/parameter-store-executor/releases/latest/download/pse-linux-adm64 /pse
 
 # make the binary executable
 RUN chmod +x /pse
@@ -88,10 +88,10 @@ a `COPY --from` statement like so:
 
 ```Dockerfile
 # install a specific binary release
-COPY --from neochrome/parameter-store-executor:0.2.0 /pse /
+COPY --from=neochrome/parameter-store-executor:0.2.0 /pse /
 # -- or --
 # use the latest version
-COPY --from neochrome/parameter-store-executor:latest /pse /
+COPY --from=neochrome/parameter-store-executor:latest /pse /
 
 # make the binary executable
 RUN chmod +x /pse
