@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/neochrome/parameter-store-executor/compare/v0.3.0...v0.3.1) (2022-07-06)
+
+
+### Miscellaneous Chores
+
+* release 0.3.1 ([c98e1d7](https://github.com/neochrome/parameter-store-executor/commit/c98e1d75e2a4d337472e81509fb951a36069651b))
+
 ## [0.3.0](https://github.com/neochrome/parameter-store-executor/compare/v0.2.2...v0.3.0) (2022-06-03)
 
 
