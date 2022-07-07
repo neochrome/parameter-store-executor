@@ -10,27 +10,54 @@ name: CI
 
 jobs:
 
-  ci:
+  prepare-cargo:
     runs-on: ubuntu-latest
     steps:
+      - name: cache cargo binaries
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+          key: ${{ runner.os }}-cargo
+
+      - name: install cross binary
+        run: |
+          cargo install cross --git https://github.com/cross-rs/cross || true
+
+  ci:
+    needs:
+      - prepare-cargo
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - target: x86_64-unknown-linux-musl
+          - target: aarch64-unknown-linux-musl
+          - target: arm-unknown-linux-musleabihf
+          - target: armv7-unknown-linux-musleabihf
+
+    steps:
+      - name: use cached cargo binaries
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+          key: ${{ runner.os }}-cargo
+
       - uses: actions/checkout@v3
 
-      - name: toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-
-      - uses: actions/cache@v3
+      - name: use cached dependencies
+        uses: actions/cache@v3
         with:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-target-${{ matrix.target }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: test
+      - name: build
         uses: actions-rs/cargo@v1
         with:
+          use-cross: true
           command: test
+          args: --target ${{ matrix.target }}
