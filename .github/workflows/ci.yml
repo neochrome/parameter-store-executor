@@ -1,9 +1,9 @@
 on:
   push:
-    branches:
-      - '*'
+    branches-ignore:
+      - 'release-please--**'
     tags-ignore:
-      - 'v*'
+      - '*'
   pull_request_target:
 
 name: CI
@@ -55,7 +55,7 @@ jobs:
             target
           key: ${{ runner.os }}-target-${{ matrix.target }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: build
+      - name: test
         uses: actions-rs/cargo@v1
         with:
           use-cross: true
