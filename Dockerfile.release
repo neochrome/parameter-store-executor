@@ -4,6 +4,7 @@ COPY ./release/* /
 RUN \
 	case "${TARGETPLATFORM}" in \
 		"linux/amd64")  BIN=/pse-linux-amd64;; \
+		"linux/arm64")  BIN=/pse-linux-arm64;; \
 		"linux/arm/v6") BIN=/pse-linux-arm6;; \
 		"linux/arm/v7") BIN=/pse-linux-arm7;; \
 	esac \
