@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/neochrome/parameter-store-executor/compare/v0.3.1...v0.3.2) (2022-07-07)
+
+
+### Bug Fixes
+
+* add arm64 target ([3f88fd3](https://github.com/neochrome/parameter-store-executor/commit/3f88fd30f9cb5296c8027c6d586454f1f2ef1dd7))
+
 ## [0.3.1](https://github.com/neochrome/parameter-store-executor/compare/v0.3.0...v0.3.1) (2022-07-06)
 
 
