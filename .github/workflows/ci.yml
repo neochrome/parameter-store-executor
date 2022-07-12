@@ -61,3 +61,9 @@ jobs:
           use-cross: true
           command: test
           args: --target ${{ matrix.target }}
+
+  ci-success:
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Success
