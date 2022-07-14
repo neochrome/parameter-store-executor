@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.5](https://github.com/neochrome/parameter-store-executor/compare/v0.3.4...v0.3.5) (2022-07-14)
+
+
+### Bug Fixes
+
+* **deps:** bump clap from 3.2.11 to 3.2.12 ([dcc5419](https://github.com/neochrome/parameter-store-executor/commit/dcc5419c24dd9a5292a83a7951490d513a7048a7))
+* **deps:** bump tokio from 1.19.2 to 1.20.0 ([de3dc7d](https://github.com/neochrome/parameter-store-executor/commit/de3dc7d4aa36d71bc7b06da54d8f355e45170526))
+
 ## [0.3.4](https://github.com/neochrome/parameter-store-executor/compare/v0.3.3...v0.3.4) (2022-07-13)
 
 
