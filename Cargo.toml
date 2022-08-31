@@ -1,6 +1,6 @@
 [package]
 name = "parameter-store-executor"
-version = "0.3.10"
+version = "0.3.11"
 edition = "2021"
 authors = ["Johan Stenqvist <johan@stenqvist.net>"]
 
