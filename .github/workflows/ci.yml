@@ -62,6 +62,13 @@ jobs:
           command: fmt
           args: --check
 
+      - name: check linting
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: clippy
+          args: --target ${{ matrix.target }}
+
       - name: test
         uses: actions-rs/cargo@v1
         with:
