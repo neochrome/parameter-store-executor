@@ -21,4 +21,4 @@ aws-sdk-ssm = "0.17.0"
 [dev-dependencies.cargo-husky]
 version = "1"
 default-features = false
-features = ["precommit-hook", "run-cargo-test", "run-cargo-fmt"]
+features = ["precommit-hook", "run-cargo-test", "run-cargo-fmt", "run-cargo-clippy"]
