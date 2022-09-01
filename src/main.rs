@@ -21,7 +21,7 @@ async fn main() {
             Err(error) => {
                 eprintln!("[ERROR] Reading parameters at `{}`. {}", path, error);
                 std::process::exit(1);
-            },
+            }
         };
     }
 
@@ -35,6 +35,10 @@ async fn main() {
         .args(&args.program_args)
         .exec();
 
-    eprintln!("[ERROR] Executing `{}`. {}", &args.program, error.to_string());
+    eprintln!(
+        "[ERROR] Executing `{}`. {}",
+        &args.program,
+        error.to_string()
+    );
     std::process::exit(1);
 }

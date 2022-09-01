@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use crate::parameter_store::Parameter;
+use std::collections::HashMap;
 
 #[derive(Default)]
 pub struct ProgramEnv {
@@ -15,7 +15,8 @@ impl ProgramEnv {
     pub fn params(&mut self, params: &[Parameter]) -> &mut ProgramEnv {
         for p in params {
             self.params.insert(
-                p.name.to_ascii_uppercase()
+                p.name
+                    .to_ascii_uppercase()
                     .replace("-", "_")
                     .replace("/", "_"),
                 p.value.to_string(),
@@ -31,8 +32,8 @@ impl ProgramEnv {
 
     pub fn to_map(&mut self) -> HashMap<String, String> {
         let mut env = self.params.clone();
-        for (k,v) in self.vars.clone() {
-            env.insert(k,v);
+        for (k, v) in self.vars.clone() {
+            env.insert(k, v);
         }
         env
     }
@@ -41,7 +42,7 @@ impl ProgramEnv {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{map, vars, params};
+    use crate::{map, params, vars};
 
     #[test]
     fn empty() {
@@ -101,10 +102,7 @@ mod tests {
             .params(&params![("password", "override")])
             .to_map();
 
-        assert_eq!(
-            env,
-            map![("USER_NAME", "user"), ("PASSWORD", "override")]
-        );
+        assert_eq!(env, map![("USER_NAME", "user"), ("PASSWORD", "override")]);
     }
 
     #[test]
@@ -113,10 +111,7 @@ mod tests {
             .vars(&vars![("ENV1", "one"), ("ENV2", "two")])
             .to_map();
 
-        assert_eq!(
-            env,
-            map![("ENV1", "one"), ("ENV2", "two")]
-        );
+        assert_eq!(env, map![("ENV1", "one"), ("ENV2", "two")]);
     }
 
     #[test]
@@ -126,12 +121,8 @@ mod tests {
             .params(&params![("user-name", "user"), ("password", "pass")])
             .to_map();
 
-        assert_eq!(
-            env,
-            map![("USER_NAME", "user"), ("PASSWORD", "from-env")]
-        );
+        assert_eq!(env, map![("USER_NAME", "user"), ("PASSWORD", "from-env")]);
     }
-
 
     #[macro_export]
     macro_rules! params {
