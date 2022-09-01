@@ -55,6 +55,13 @@ jobs:
             target
           key: ${{ runner.os }}-target-${{ matrix.target }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
+      - name: check formatting
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: fmt
+          args: --check
+
       - name: test
         uses: actions-rs/cargo@v1
         with:
