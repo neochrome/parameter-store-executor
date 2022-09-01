@@ -2,9 +2,9 @@
 
 fn is_a_parameter_path(v: &str) -> Result<(), String> {
     if v.starts_with('/') {
-        return Ok(());
+        Ok(())
     } else {
-        return Err(String::from("The parameter must start with a '/'"));
+        Err(String::from("The parameter must start with a '/'"))
     }
 }
 

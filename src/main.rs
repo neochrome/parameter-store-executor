@@ -35,10 +35,6 @@ async fn main() {
         .args(&args.program_args)
         .exec();
 
-    eprintln!(
-        "[ERROR] Executing `{}`. {}",
-        &args.program,
-        error.to_string()
-    );
+    eprintln!("[ERROR] Executing `{}`. {}", &args.program, error);
     std::process::exit(1);
 }

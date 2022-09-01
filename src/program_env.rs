@@ -17,8 +17,8 @@ impl ProgramEnv {
             self.params.insert(
                 p.name
                     .to_ascii_uppercase()
-                    .replace("-", "_")
-                    .replace("/", "_"),
+                    .replace('-', "_")
+                    .replace('/', "_"),
                 p.value.to_string(),
             );
         }
@@ -30,7 +30,7 @@ impl ProgramEnv {
         self
     }
 
-    pub fn to_map(&mut self) -> HashMap<String, String> {
+    pub fn to_map(&self) -> HashMap<String, String> {
         let mut env = self.params.clone();
         for (k, v) in self.vars.clone() {
             env.insert(k, v);

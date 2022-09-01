@@ -48,7 +48,7 @@ impl ParameterStore {
 }
 
 fn unescape(str: &str) -> String {
-    str.replace("\\", "").replace("\\\"", "\"")
+    str.replace('\\', "").replace("\\\"", "\"")
 }
 
 fn strip_prefix(name: &str, path: &str) -> String {
