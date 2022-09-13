@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.12](https://github.com/neochrome/parameter-store-executor/compare/v0.3.11...v0.3.12) (2022-09-13)
+
+
+### Bug Fixes
+
+* **deps:** bump aws-config from 0.47.0 to 0.48.0 ([f949426](https://github.com/neochrome/parameter-store-executor/commit/f9494264b28e8b9bc771859060bdf9652684ff52))
+* **deps:** bump aws-sdk-ssm from 0.17.0 to 0.18.0 ([13413ef](https://github.com/neochrome/parameter-store-executor/commit/13413ef0c9da13fb3393f53b2b7f4fc9f448e6e2))
+* **deps:** bump clap from 3.2.19 to 3.2.20 ([e3a1f3b](https://github.com/neochrome/parameter-store-executor/commit/e3a1f3bb6eb4c7ec7eccd12f21d6d04c88039ca7))
+* **deps:** bump clap from 3.2.20 to 3.2.21 ([bd8f223](https://github.com/neochrome/parameter-store-executor/commit/bd8f223eaf8eafd772e35a7af8d9670b01960a4b))
+* **deps:** bump tokio from 1.20.1 to 1.21.0 ([87ffdde](https://github.com/neochrome/parameter-store-executor/commit/87ffdde3ca69c76c549b0e873d34ff6ee06d0063))
+* **deps:** bump tokio from 1.21.0 to 1.21.1 ([4b26844](https://github.com/neochrome/parameter-store-executor/commit/4b268448d5e8f59bb2390ff6000a2b4c99cd53c6))
+
 ## [0.3.11](https://github.com/neochrome/parameter-store-executor/compare/v0.3.10...v0.3.11) (2022-08-31)
 
 
