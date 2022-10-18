@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.15](https://github.com/neochrome/parameter-store-executor/compare/v0.3.14...v0.3.15) (2022-10-18)
+
+
+### Bug Fixes
+
+* **deps:** bump tokio from 1.21.1 to 1.21.2 ([432d00c](https://github.com/neochrome/parameter-store-executor/commit/432d00c93d10e98fc1c20cc29542c030e8a16994))
+* **deps:** bump tokio-stream from 0.1.10 to 0.1.11 ([0eff53c](https://github.com/neochrome/parameter-store-executor/commit/0eff53cdf1c486d55c850a65fc2a6329bb55cb53))
+
 ## [0.3.14](https://github.com/neochrome/parameter-store-executor/compare/v0.3.13...v0.3.14) (2022-09-21)
 
 
