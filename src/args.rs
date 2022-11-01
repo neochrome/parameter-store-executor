@@ -1,17 +1,14 @@
 #![allow(unused)]
 
-fn is_a_parameter_path(v: &str) -> Result<(), String> {
-    if v.starts_with('/') {
-        Ok(())
-    } else {
-        Err(String::from("The parameter must start with a '/'"))
-    }
-}
+use std::{
+    collections::VecDeque,
+    env::ArgsOs,
+    ffi::{OsStr, OsString},
+};
 
-use std::collections::VecDeque;
+use clap::{arg, builder::NonEmptyStringValueParser, command, Arg, ArgAction, Command};
 
-use clap::{arg, command, Arg, Command};
-
+#[derive(Debug, PartialEq, Eq)]
 pub struct Args {
     pub paths: Vec<String>,
     pub program: String,
@@ -19,8 +16,8 @@ pub struct Args {
     pub clean_env: bool,
 }
 
-pub fn parse() -> Args {
-    let args = command!()
+fn build_parser() -> clap::Command<'static> {
+    command!()
         .author("")
         .term_width(80)
         .long_about(
@@ -43,9 +40,15 @@ pub fn parse() -> Args {
                     E.g: /my-app/secrets",
                 )
                 .required(true)
-                .forbid_empty_values(true)
-                .multiple_occurrences(true)
-                .validator(is_a_parameter_path),
+                .value_parser(|p: &str|
+                    if p.starts_with('/') {
+                        Ok(p.to_string())
+                    } else {
+                        Err(String::from("The parameter must start with a '/'"))
+                    }
+                )
+                .multiple_values(true)
+                .action(ArgAction::Append),
         )
         .arg(
             Arg::new("program")
@@ -56,7 +59,6 @@ pub fn parse() -> Args {
                 )
                 .required(false)
                 .default_value("env")
-                .multiple_occurrences(false)
                 .multiple_values(false)
                 .last(true),
         )
@@ -99,15 +101,22 @@ pub fn parse() -> Args {
                | PASSWORD      | pass-2   | /one, superceded by /two |\n\
             "
         )
-        .get_matches();
+}
 
-    let paths = args.values_of("paths").unwrap().map(String::from).collect();
-    let program_and_args = args
-        .values_of("program")
-        .unwrap()
-        .map(String::from)
-        .collect::<Vec<_>>();
-    let clean_env = args.is_present("clean-env");
+pub fn parse() -> Args {
+    parse_from(std::env::args_os())
+}
+
+pub fn parse_from<I, T>(input: I) -> Args
+where
+    I: IntoIterator<Item = T>,
+    T: Into<OsString> + Clone,
+{
+    let args = build_parser().get_matches_from(input);
+
+    let paths: Vec<String> = args.get_many("paths").unwrap().cloned().collect();
+    let program_and_args: Vec<String> = args.get_many("program").unwrap().cloned().collect();
+    let clean_env = args.contains_id("clean-env");
 
     Args {
         paths,
@@ -115,4 +124,35 @@ pub fn parse() -> Args {
         program_args: program_and_args.into_iter().skip(1).collect(),
         clean_env,
     }
+}
+
+#[test]
+fn verify_parser() {
+    build_parser().debug_assert();
+}
+
+#[test]
+fn complete_example() {
+    let args = parse_from(vec![
+        "pse",
+        "--clean-env",
+        "/a/path",
+        "/another/path",
+        "--",
+        "/path/to/a/binary",
+        "arg1",
+        "arg2",
+    ]);
+    assert_eq!(
+        args,
+        Args {
+            paths: vec!["/a/path", "/another/path"]
+                .into_iter()
+                .map(Into::into)
+                .collect(),
+            program: "/path/to/a/binary".to_string(),
+            program_args: vec!["arg1", "arg2"].into_iter().map(Into::into).collect(),
+            clean_env: true,
+        }
+    )
 }
