@@ -16,7 +16,7 @@ pub struct Args {
     pub clean_env: bool,
 }
 
-fn build_parser() -> clap::Command<'static> {
+fn build_parser() -> clap::Command {
     command!()
         .author("")
         .term_width(80)
@@ -28,6 +28,7 @@ fn build_parser() -> clap::Command<'static> {
             Arg::new("clean-env")
                 .short('c')
                 .long("clean-env")
+                .num_args(0)
                 .help("Start with a clean environment"),
         )
         .arg(
@@ -40,15 +41,15 @@ fn build_parser() -> clap::Command<'static> {
                     E.g: /my-app/secrets",
                 )
                 .required(true)
+                .num_args(1..)
+                .action(ArgAction::Append)
                 .value_parser(|p: &str|
                     if p.starts_with('/') {
                         Ok(p.to_string())
                     } else {
                         Err(String::from("The parameter must start with a '/'"))
                     }
-                )
-                .multiple_values(true)
-                .action(ArgAction::Append),
+                ),
         )
         .arg(
             Arg::new("program")
@@ -58,8 +59,9 @@ fn build_parser() -> clap::Command<'static> {
                     "The PROGRAM, with optional ARG(s), to execute",
                 )
                 .required(false)
+                .num_args(0..)
+                .action(ArgAction::Append)
                 .default_value("env")
-                .multiple_values(false)
                 .last(true),
         )
         .after_long_help("\
@@ -114,7 +116,7 @@ where
 {
     let args = build_parser().get_matches_from(input);
 
-    let paths: Vec<String> = args.get_many("paths").unwrap().cloned().collect();
+    let paths: Vec<String> = args.get_many::<String>("paths").unwrap().cloned().collect();
     let program_and_args: Vec<String> = args.get_many("program").unwrap().cloned().collect();
     let clean_env = args.contains_id("clean-env");
 
@@ -136,8 +138,8 @@ fn complete_example() {
     let args = parse_from(vec![
         "pse",
         "--clean-env",
-        "/a/path",
-        "/another/path",
+        "/p/a/t/h/1",
+        "/p/a/t/h/2",
         "--",
         "/path/to/a/binary",
         "arg1",
@@ -146,7 +148,7 @@ fn complete_example() {
     assert_eq!(
         args,
         Args {
-            paths: vec!["/a/path", "/another/path"]
+            paths: vec!["/p/a/t/h/1", "/p/a/t/h/2"]
                 .into_iter()
                 .map(Into::into)
                 .collect(),
