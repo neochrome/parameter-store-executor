@@ -118,7 +118,7 @@ where
 
     let paths: Vec<String> = args.get_many::<String>("paths").unwrap().cloned().collect();
     let program_and_args: Vec<String> = args.get_many("program").unwrap().cloned().collect();
-    let clean_env = args.contains_id("clean-env");
+    let clean_env = args.get_flag("clean-env");
 
     Args {
         paths,
@@ -127,34 +127,52 @@ where
         clean_env,
     }
 }
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-#[test]
-fn verify_parser() {
-    build_parser().debug_assert();
-}
+    #[test]
+    fn verify_parser() {
+        build_parser().debug_assert();
+    }
 
-#[test]
-fn complete_example() {
-    let args = parse_from(vec![
-        "pse",
-        "--clean-env",
-        "/p/a/t/h/1",
-        "/p/a/t/h/2",
-        "--",
-        "/path/to/a/binary",
-        "arg1",
-        "arg2",
-    ]);
-    assert_eq!(
-        args,
-        Args {
-            paths: vec!["/p/a/t/h/1", "/p/a/t/h/2"]
-                .into_iter()
-                .map(Into::into)
-                .collect(),
-            program: "/path/to/a/binary".to_string(),
-            program_args: vec!["arg1", "arg2"].into_iter().map(Into::into).collect(),
-            clean_env: true,
-        }
-    )
+    #[test]
+    fn defauls() {
+        let args = parse_from(vec!["pse", "/a-path"]);
+        assert_eq!(
+            args,
+            Args {
+                paths: vec!["/a-path"].into_iter().map(Into::into).collect(),
+                program: "env".to_string(),
+                program_args: Vec::new(),
+                clean_env: false,
+            }
+        )
+    }
+
+    #[test]
+    fn complete_example() {
+        let args = parse_from(vec![
+            "pse",
+            "--clean-env",
+            "/p/a/t/h/1",
+            "/p/a/t/h/2",
+            "--",
+            "/path/to/a/binary",
+            "arg1",
+            "arg2",
+        ]);
+        assert_eq!(
+            args,
+            Args {
+                paths: vec!["/p/a/t/h/1", "/p/a/t/h/2"]
+                    .into_iter()
+                    .map(Into::into)
+                    .collect(),
+                program: "/path/to/a/binary".to_string(),
+                program_args: vec!["arg1", "arg2"].into_iter().map(Into::into).collect(),
+                clean_env: true,
+            }
+        )
+    }
 }
