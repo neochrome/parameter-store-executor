@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.17](https://github.com/neochrome/parameter-store-executor/compare/v0.3.16...v0.3.17) (2022-11-03)
+
+
+### Bug Fixes
+
+* clean-env flag detection ([994de48](https://github.com/neochrome/parameter-store-executor/commit/994de486a7cfe0ce5be14fa8705c9087438fd81a))
+
 ## [0.3.16](https://github.com/neochrome/parameter-store-executor/compare/v0.3.15...v0.3.16) (2022-11-01)
 
 
