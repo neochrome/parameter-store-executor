@@ -12,7 +12,7 @@ path = "src/main.rs"
 strip = true
 
 [dependencies]
-clap = { version = "4.0.23", features = ["cargo"] }
+clap = { version = "4.0.24", features = ["cargo"] }
 tokio = { version = "1.21.2", features = ["full"] }
 tokio-stream = "0.1.11"
 aws-config = "0.51.0"
