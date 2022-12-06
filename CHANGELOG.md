@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.18](https://github.com/neochrome/parameter-store-executor/compare/v0.3.17...v0.3.18) (2022-12-06)
+
+
+### Bug Fixes
+
+* **deps:** bump clap from 4.0.18 to 4.0.23 ([789177e](https://github.com/neochrome/parameter-store-executor/commit/789177ea5e02f3442b0707fc8f43927e9adcc758))
+* **deps:** bump clap from 4.0.23 to 4.0.24 ([318399d](https://github.com/neochrome/parameter-store-executor/commit/318399df74cdc882bfe31148e9db2a3b4f766ccf))
+* **deps:** bump clap from 4.0.24 to 4.0.25 ([4ea3bc9](https://github.com/neochrome/parameter-store-executor/commit/4ea3bc9c58f88a2057b8961ffb20dd65d0114684))
+* **deps:** bump clap from 4.0.25 to 4.0.26 ([3fbcc07](https://github.com/neochrome/parameter-store-executor/commit/3fbcc0776f6d4af35d601a672347affe546035f1))
+* **deps:** bump clap from 4.0.26 to 4.0.27 ([3593eff](https://github.com/neochrome/parameter-store-executor/commit/3593eff44c5027a3cbbbbdd566af1eb67166d804))
+* **deps:** bump clap from 4.0.27 to 4.0.29 ([58d73b6](https://github.com/neochrome/parameter-store-executor/commit/58d73b661d6aff54469ffd8955c6eb4d22cd2981))
+* **deps:** bump tokio from 1.21.2 to 1.22.0 ([05d299a](https://github.com/neochrome/parameter-store-executor/commit/05d299ac67e605b8c3215a6b20a0328e10336ab7))
+* **deps:** bump tokio from 1.22.0 to 1.23.0 ([9f315a9](https://github.com/neochrome/parameter-store-executor/commit/9f315a94be38d2c4ee2bbc14e4d3917e9f274277))
+
 ## [0.3.17](https://github.com/neochrome/parameter-store-executor/compare/v0.3.16...v0.3.17) (2022-11-03)
 
 
