@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.20](https://github.com/neochrome/parameter-store-executor/compare/v0.3.19...v0.3.20) (2023-01-16)
+
+
+### Bug Fixes
+
+* **deps:** bump aws-config from 0.52.0 to 0.53.0 ([8b981ff](https://github.com/neochrome/parameter-store-executor/commit/8b981ff65ff889106b90a407de75e53a5cb8dbd2))
+* **deps:** bump aws-sdk-ssm from 0.22.0 to 0.23.0 ([00dabbb](https://github.com/neochrome/parameter-store-executor/commit/00dabbbc2808584e623a70dc09da2c41fc3a2310))
+* **deps:** bump clap from 4.0.32 to 4.1.1 ([5b50a4a](https://github.com/neochrome/parameter-store-executor/commit/5b50a4a9c72a8862b4f3395591e835e53fb5ca08))
+
 ## [0.3.19](https://github.com/neochrome/parameter-store-executor/compare/v0.3.18...v0.3.19) (2023-01-06)
 
 
