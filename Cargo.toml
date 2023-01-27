@@ -16,7 +16,7 @@ clap = { version = "4.1.4", features = ["cargo"] }
 tokio = { version = "1.24.2", features = ["full"] }
 tokio-stream = "0.1.11"
 aws-config = "0.53.0"
-aws-sdk-ssm = "0.23.0"
+aws-sdk-ssm = "0.24.0"
 
 [dev-dependencies.cargo-husky]
 version = "1"
