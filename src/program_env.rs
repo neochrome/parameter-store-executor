@@ -27,6 +27,10 @@ impl ProgramEnv {
         self
     }
 
+    pub fn len(&self) -> usize {
+        self.params.len()
+    }
+
     pub fn to_map(&self) -> HashMap<String, String> {
         let mut env = self.params.clone();
         for (k, v) in self.vars.clone() {
@@ -43,18 +47,22 @@ mod tests {
 
     #[test]
     fn empty() {
-        let env = ProgramEnv::new().to_map();
+        let env = ProgramEnv::new();
 
-        assert_eq!(env, HashMap::new());
+        assert_eq!(env.len(), 0);
+        assert_eq!(env.to_map(), HashMap::new());
     }
 
     #[test]
     fn with_params() {
-        let env = ProgramEnv::new()
-            .params(&params![("user-name", "user"), ("password", "pass")])
-            .to_map();
+        let mut env = ProgramEnv::new();
+        env.params(&params![("user-name", "user"), ("password", "pass")]);
 
-        assert_eq!(env, map![("USER_NAME", "user"), ("PASSWORD", "pass")]);
+        assert_eq!(env.len(), 2);
+        assert_eq!(
+            env.to_map(),
+            map![("USER_NAME", "user"), ("PASSWORD", "pass")]
+        );
     }
 
     #[test]
@@ -113,12 +121,15 @@ mod tests {
 
     #[test]
     fn env_vars_takes_precedence_over_parameters() {
-        let env = ProgramEnv::new()
-            .vars(&vars![("PASSWORD", "from-env")])
-            .params(&params![("user-name", "user"), ("password", "pass")])
-            .to_map();
+        let mut env = ProgramEnv::new();
+        env.vars(&vars![("PASSWORD", "from-env")]);
+        env.params(&params![("user-name", "user"), ("password", "pass")]);
 
-        assert_eq!(env, map![("USER_NAME", "user"), ("PASSWORD", "from-env")]);
+        assert_eq!(env.len(), 2);
+        assert_eq!(
+            env.to_map(),
+            map![("USER_NAME", "user"), ("PASSWORD", "from-env")]
+        );
     }
 
     #[macro_export]

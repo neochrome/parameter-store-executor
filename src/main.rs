@@ -25,6 +25,10 @@ async fn main() {
         };
     }
 
+    if env.len() == 0 {
+        eprintln!("[WARN] No parameters found.");
+    }
+
     if !args.clean_env {
         env.vars(&std::env::vars().collect::<Vec<_>>());
     }
