@@ -137,7 +137,7 @@ mod tests {
     }
 
     #[test]
-    fn defauls() {
+    fn defaults() {
         let args = parse_from(vec!["pse", "/a-path"]);
         assert_eq!(
             args,
