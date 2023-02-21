@@ -15,10 +15,7 @@ impl ProgramEnv {
     pub fn params(&mut self, params: &[Parameter]) -> &mut ProgramEnv {
         for p in params {
             self.params.insert(
-                p.name
-                    .to_ascii_uppercase()
-                    .replace('-', "_")
-                    .replace('/', "_"),
+                p.name.to_ascii_uppercase().replace(['-', '/'], "_"),
                 p.value.to_string(),
             );
         }
