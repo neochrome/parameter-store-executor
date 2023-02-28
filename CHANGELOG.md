@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.23](https://github.com/neochrome/parameter-store-executor/compare/v0.3.22...v0.3.23) (2023-02-28)
+
+
+### Bug Fixes
+
+* clippy warnings ([e5d16af](https://github.com/neochrome/parameter-store-executor/commit/e5d16af29c649b23b019b63fcf8b39db1f4da883))
+* **deps:** bump clap from 4.1.6 to 4.1.8 ([c93216f](https://github.com/neochrome/parameter-store-executor/commit/c93216f8c070df8332d7faa00bf1dc6cb76cf310))
+* warn if no parameters found ([497fae5](https://github.com/neochrome/parameter-store-executor/commit/497fae59b9ea76ee08aa252a62f56e0ce659abbb))
+
 ## [0.3.22](https://github.com/neochrome/parameter-store-executor/compare/v0.3.21...v0.3.22) (2023-02-20)
 
 
