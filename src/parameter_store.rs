@@ -1,5 +1,4 @@
-use aws_sdk_ssm::output::GetParametersByPathOutput;
-use aws_sdk_ssm::Client;
+use aws_sdk_ssm::{operation::get_parameters_by_path::GetParametersByPathOutput, Client};
 use tokio_stream::StreamExt;
 
 #[derive(Debug)]
