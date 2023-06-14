@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.27](https://github.com/neochrome/parameter-store-executor/compare/v0.3.26...v0.3.27) (2023-06-14)
+
+
+### Bug Fixes
+
+* **deps:** bump aws-config from 0.55.1 to 0.55.2 ([511e02a](https://github.com/neochrome/parameter-store-executor/commit/511e02a4ea24b574a368098a0776a15c8b6e82f4))
+* **deps:** bump aws-config from 0.55.2 to 0.55.3 ([4b474be](https://github.com/neochrome/parameter-store-executor/commit/4b474bec325dead7e8a9abb688174e262dd6b6f0))
+* **deps:** bump aws-sdk-ssm from 0.26.0 to 0.27.0 ([94d894a](https://github.com/neochrome/parameter-store-executor/commit/94d894a132459d919747f450f0aaa7a5d5f8b32a))
+* **deps:** bump aws-sdk-ssm from 0.27.0 to 0.28.0 ([a23c2ae](https://github.com/neochrome/parameter-store-executor/commit/a23c2ae50f63f6b153c29f1d97a0766fa325e669))
+* **deps:** bump clap from 4.2.5 to 4.2.7 ([2b63504](https://github.com/neochrome/parameter-store-executor/commit/2b63504aa825af913d0eb5f7e197c16c4e3820bc))
+* **deps:** bump clap from 4.2.7 to 4.3.0 ([52da919](https://github.com/neochrome/parameter-store-executor/commit/52da919a14f28060d4ef5f8de2cd832665a38716))
+* **deps:** bump clap from 4.3.0 to 4.3.1 ([6ada048](https://github.com/neochrome/parameter-store-executor/commit/6ada04815f0862e44a253f195d34bbaff588e6ee))
+* **deps:** bump clap from 4.3.1 to 4.3.2 ([c49889a](https://github.com/neochrome/parameter-store-executor/commit/c49889a3eec819b99883b0cb9506502bae18de9e))
+* **deps:** bump clap from 4.3.2 to 4.3.4 ([6b37098](https://github.com/neochrome/parameter-store-executor/commit/6b37098171f132ed805d46dae8fdae4c67590013))
+* **deps:** bump tokio from 1.28.0 to 1.28.1 ([5018991](https://github.com/neochrome/parameter-store-executor/commit/501899169028573a16c3e8bb1db90214fe3c0a7f))
+* **deps:** bump tokio from 1.28.1 to 1.28.2 ([40a4b81](https://github.com/neochrome/parameter-store-executor/commit/40a4b81450623fed308fefe3b5d2f0f35ff5cb90))
+
 ## [0.3.26](https://github.com/neochrome/parameter-store-executor/compare/v0.3.25...v0.3.26) (2023-04-28)
 
 
