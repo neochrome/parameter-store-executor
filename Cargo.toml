@@ -13,7 +13,7 @@ strip = true
 
 [dependencies]
 clap = { version = "4.3.8", features = ["cargo"] }
-tokio = { version = "1.28.2", features = ["full"] }
+tokio = { version = "1.29.0", features = ["full"] }
 tokio-stream = "0.1.14"
 aws-config = "0.55.3"
 aws-sdk-ssm = "0.28.0"
