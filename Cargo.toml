@@ -1,6 +1,6 @@
 [package]
 name = "parameter-store-executor"
-version = "0.3.30"
+version = "0.3.31"
 edition = "2021"
 authors = ["Johan Stenqvist <johan@stenqvist.net>"]
 
@@ -12,7 +12,7 @@ path = "src/main.rs"
 strip = true
 
 [dependencies]
-clap = { version = "4.4.7", features = ["cargo"] }
+clap = { version = "4.4.6", features = ["cargo"] }
 tokio = { version = "1.33.0", features = ["full"] }
 tokio-stream = "0.1.14"
 aws-config = "0.56.1"
