@@ -1,5 +1,41 @@
 # Changelog
 
+## [0.3.32](https://github.com/neochrome/parameter-store-executor/compare/v0.3.31...v0.3.32) (2024-03-14)
+
+
+### Bug Fixes
+
+* **deps:** bump aws crates to latest ([4fba7be](https://github.com/neochrome/parameter-store-executor/commit/4fba7be09653e753e95bd1f0d9dc5fa2ed63dd5b))
+* **deps:** bump aws-config from 0.100.0 to 0.101.0 ([6ae7f90](https://github.com/neochrome/parameter-store-executor/commit/6ae7f90986306b249e75c95926d7833ff5c1d1a3))
+* **deps:** bump aws-config from 0.56.1 to 0.57.1 ([dd61a3f](https://github.com/neochrome/parameter-store-executor/commit/dd61a3f7bad961162aa273685b148d1cf4944a61))
+* **deps:** bump aws-config from 0.57.1 to 0.57.2 ([b373b02](https://github.com/neochrome/parameter-store-executor/commit/b373b02ebcb9a2dfe1e1c42b4808fbe88880e5e8))
+* **deps:** bump aws-config from 0.57.2 to 0.100.0 ([28b154d](https://github.com/neochrome/parameter-store-executor/commit/28b154d71ba67479a820ae1a7f688a2c9aec9422))
+* **deps:** bump aws-sdk-ssm from 0.33.0 to 0.34.0 ([18b98c1](https://github.com/neochrome/parameter-store-executor/commit/18b98c16dc0a87664712369e70ba833152380feb))
+* **deps:** bump aws-sdk-ssm from 0.34.0 to 0.35.0 ([e8e3f7b](https://github.com/neochrome/parameter-store-executor/commit/e8e3f7b239308b3cc8e863c940b4a2c900a49982))
+* **deps:** bump aws-sdk-ssm from 0.35.0 to 0.36.0 ([4bfa7da](https://github.com/neochrome/parameter-store-executor/commit/4bfa7da6593cbbeaca54a64de8bddd63ca2738cc))
+* **deps:** bump aws-sdk-ssm from 0.36.0 to 0.37.0 ([4330bbb](https://github.com/neochrome/parameter-store-executor/commit/4330bbb57427b02d5e784b0edd82210c12a0c0cd))
+* **deps:** bump aws-sdk-ssm from 0.37.0 to 0.38.0 ([8aa0643](https://github.com/neochrome/parameter-store-executor/commit/8aa0643c0523222f9831824b75c35897811b15c3))
+* **deps:** bump aws-sdk-ssm from 0.38.0 to 0.39.0 ([cb6bcfe](https://github.com/neochrome/parameter-store-executor/commit/cb6bcfe252cf1f75702fa7edbbee8662df7115c7))
+* **deps:** bump clap from 4.4.10 to 4.4.11 ([06260f7](https://github.com/neochrome/parameter-store-executor/commit/06260f7cebbd39563c1af485577225028df35b8d))
+* **deps:** bump clap from 4.4.11 to 4.4.12 ([fda7884](https://github.com/neochrome/parameter-store-executor/commit/fda78846ba2ab43fffb706fbf6c3a4f7462e75ea))
+* **deps:** bump clap from 4.4.12 to 4.4.13 ([d90679a](https://github.com/neochrome/parameter-store-executor/commit/d90679a181fd370e2bbe638c2b06399fdd0d306d))
+* **deps:** bump clap from 4.4.13 to 4.4.14 ([6187220](https://github.com/neochrome/parameter-store-executor/commit/618722065c98342a833d5c9fee7f310784cc3c9f))
+* **deps:** bump clap from 4.4.14 to 4.4.16 ([7803255](https://github.com/neochrome/parameter-store-executor/commit/7803255a781fdfb594ad43c15fef51c86ba01bd6))
+* **deps:** bump clap from 4.4.16 to 4.4.17 ([fa781b9](https://github.com/neochrome/parameter-store-executor/commit/fa781b95db85ef026a8d44c3830602bdb7632925))
+* **deps:** bump clap from 4.4.17 to 4.4.18 ([0ecd925](https://github.com/neochrome/parameter-store-executor/commit/0ecd9255814c2b85e1646742391a45b0a3b787d7))
+* **deps:** bump clap from 4.4.18 to 4.5.0 ([d03df78](https://github.com/neochrome/parameter-store-executor/commit/d03df782488e05c020aab753a236b5828b421149))
+* **deps:** bump clap from 4.4.6 to 4.4.7 ([a1913fc](https://github.com/neochrome/parameter-store-executor/commit/a1913fc7cdc33ff151859fa376f49553bdb4580c))
+* **deps:** bump clap from 4.4.7 to 4.4.8 ([f708db5](https://github.com/neochrome/parameter-store-executor/commit/f708db5a10405b7140b6787f9e474051b3a32d36))
+* **deps:** bump clap from 4.4.8 to 4.4.10 ([df658f8](https://github.com/neochrome/parameter-store-executor/commit/df658f8a4c70730d19988dcc840af35764819a91))
+* **deps:** bump clap from 4.5.0 to 4.5.1 ([bd7fb1d](https://github.com/neochrome/parameter-store-executor/commit/bd7fb1ddb666cc68f7315282613096c7942cd269))
+* **deps:** bump clap from 4.5.1 to 4.5.2 ([555fb40](https://github.com/neochrome/parameter-store-executor/commit/555fb40c065752efd65e24fac3a3e64acb5d338a))
+* **deps:** bump h2 from 0.3.17 to 0.3.24 ([ac73812](https://github.com/neochrome/parameter-store-executor/commit/ac73812fc4e0ec9338a8a30d2dcf28cbbc46527f))
+* **deps:** bump mio from 0.8.9 to 0.8.11 ([a21cfe0](https://github.com/neochrome/parameter-store-executor/commit/a21cfe0f67ff43898c59487ba8b92236b03ea462))
+* **deps:** bump tokio from 1.33.0 to 1.34.0 ([9a81982](https://github.com/neochrome/parameter-store-executor/commit/9a81982289394804ef09449ec51abe672523870d))
+* **deps:** bump tokio from 1.34.0 to 1.35.0 ([7d2d819](https://github.com/neochrome/parameter-store-executor/commit/7d2d819ded6b07780638e0548163ad86af69a9e0))
+* **deps:** bump tokio from 1.35.0 to 1.35.1 ([34a1cb6](https://github.com/neochrome/parameter-store-executor/commit/34a1cb6bcf72697c0fe3d61231f408cfa0866586))
+* **deps:** bump tokio from 1.35.1 to 1.36.0 ([b1b762e](https://github.com/neochrome/parameter-store-executor/commit/b1b762e4d1f6d792da67e85ee849561ebc2c24a5))
+
 ## [0.3.31](https://github.com/neochrome/parameter-store-executor/compare/v0.3.30...v0.3.31) (2023-10-25)
 
 

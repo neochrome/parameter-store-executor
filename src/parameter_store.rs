@@ -1,5 +1,4 @@
 use aws_sdk_ssm::{operation::get_parameters_by_path::GetParametersByPathOutput, Client};
-use tokio_stream::StreamExt;
 
 #[derive(Debug)]
 pub struct Parameter {
@@ -34,7 +33,7 @@ impl ParameterStore {
             Ok(outputs) => {
                 let params = outputs
                     .iter()
-                    .flat_map(|o| o.parameters().unwrap())
+                    .flat_map(|o| o.parameters())
                     .map(|p| Parameter {
                         name: strip_prefix(p.name().unwrap(), path),
                         value: String::from(p.value().unwrap()),
