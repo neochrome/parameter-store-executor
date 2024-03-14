@@ -58,14 +58,14 @@ jobs:
       - name: check formatting
         uses: actions-rs/cargo@v1
         with:
-          use-cross: true
+          use-cross: false
           command: fmt
           args: --check
 
       - name: check linting
         uses: actions-rs/cargo@v1
         with:
-          use-cross: true
+          use-cross: false
           command: clippy
           args: --target ${{ matrix.target }}
 
