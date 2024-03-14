@@ -10,7 +10,7 @@ name: CI
 
 jobs:
 
-  prepare-cargo:
+  prepare:
     runs-on: ubuntu-latest
     steps:
       - name: cache cargo binaries
@@ -26,7 +26,7 @@ jobs:
 
   ci:
     needs:
-      - prepare-cargo
+      - prepare
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -56,25 +56,13 @@ jobs:
           key: ${{ runner.os }}-target-${{ matrix.target }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: check formatting
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: false
-          command: fmt
-          args: --check
+        run: cargo fmt --check
 
       - name: check linting
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: false
-          command: clippy
-          args: --target ${{ matrix.target }}
+        run: cross clippy --target ${{ matrix.target }} 
 
       - name: test
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          command: test
-          args: --target ${{ matrix.target }}
+        run: cross test --target ${{ matrix.target }}
 
   ci-success:
     needs: ci
