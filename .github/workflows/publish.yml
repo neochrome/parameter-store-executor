@@ -83,25 +83,18 @@ jobs:
           key: ${{ runner.os }}-target-${{ matrix.target }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: build
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          command: build
-          args: --release --target ${{ matrix.target }}
+        run: cross build --release --target ${{ matrix.target }}
 
       - name: prepare binary
-        run: |
-          cp ./target/${{ matrix.target }}/release/pse ./${{ matrix.name }}
+        run: cp ./target/${{ matrix.target }}/release/pse ./${{ matrix.name }}
 
       - name: verify binary
-        run: |
-          ls -l
+        run: ls -l
 
       - name: publish binary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release upload ${{ env.RELEASE }} ./${{ matrix.name }} --clobber
+        run: gh release upload ${{ env.RELEASE }} ./${{ matrix.name }} --clobber
 
   publish-docker:
     if: ${{ always() && (github.event.release || inputs.publish) }}
