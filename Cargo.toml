@@ -1,6 +1,6 @@
 [package]
 name = "parameter-store-executor"
-version = "0.3.32"
+version = "0.3.33"
 edition = "2021"
 authors = ["Johan Stenqvist <johan@stenqvist.net>"]
 
@@ -12,7 +12,7 @@ path = "src/main.rs"
 strip = true
 
 [dependencies]
-clap = { version = "4.5.2", features = ["cargo"] }
+clap = { version = "4.5.3", features = ["cargo"] }
 tokio = { version = "1.36.0", features = ["full"] }
 aws-config = { version = "1", features = ["behavior-version-latest"] }
 aws-sdk-ssm = { version = "1" }
