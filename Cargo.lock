@@ -138,9 +138,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-ssm"
-version = "1.19.0"
+version = "1.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "80d267445106e176d8f6a9039f30d38f800da653c5ec9d05db0a3f8315de8157"
+checksum = "0458560f8d0eb00139dcbfb6155560a12a8bdd20a50e2312735e9386923664a3"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
@@ -251,9 +251,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-async"
-version = "1.1.8"
+version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d26ea8fa03025b2face2b3038a63525a10891e3d8829901d502e5384a0d8cd46"
+checksum = "f7a41ccd6b74401a49ca828617049e5c23d83163d330a4f90a8081aadee0ac45"
 dependencies = [
  "futures-util",
  "pin-project-lite",
