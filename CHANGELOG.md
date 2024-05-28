@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.3.35](https://github.com/neochrome/parameter-store-executor/compare/v0.3.34...v0.3.35) (2024-05-28)
+
+
+### Bug Fixes
+
+* **deps:** bump aws-config from 1.1.10 to 1.2.0 ([c468cd7](https://github.com/neochrome/parameter-store-executor/commit/c468cd76b2b7256a721c5b8eeec8c7229c70af61))
+* **deps:** bump aws-config from 1.1.9 to 1.1.10 ([d635ea3](https://github.com/neochrome/parameter-store-executor/commit/d635ea344078e7b1c23801759029fd9c4838c411))
+* **deps:** bump aws-config from 1.2.0 to 1.2.1 ([4c61d29](https://github.com/neochrome/parameter-store-executor/commit/4c61d29cfbe7bedd428d2c2dbb4715b9fd0f9ac2))
+* **deps:** bump aws-config from 1.2.1 to 1.3.0 ([7eaaef8](https://github.com/neochrome/parameter-store-executor/commit/7eaaef8e403fd5512a82858f56102b73e399a481))
+* **deps:** bump aws-config from 1.3.0 to 1.4.0 ([d2fc66d](https://github.com/neochrome/parameter-store-executor/commit/d2fc66df583b17f459018ff72bec55f46765f161))
+* **deps:** bump aws-config from 1.4.0 to 1.5.0 ([06b44ce](https://github.com/neochrome/parameter-store-executor/commit/06b44ce72994e40f89b95bc53b36f53c8c6165e5))
+* **deps:** bump aws-sdk-ssm from 1.20.0 to 1.21.0 ([d250ea5](https://github.com/neochrome/parameter-store-executor/commit/d250ea51670f3fc43e3190ebefb275dadac34e5a))
+* **deps:** bump aws-sdk-ssm from 1.21.0 to 1.22.0 ([d86b8be](https://github.com/neochrome/parameter-store-executor/commit/d86b8bea355143caf4498cee90495569c0c17512))
+* **deps:** bump aws-sdk-ssm from 1.22.0 to 1.23.0 ([7252a47](https://github.com/neochrome/parameter-store-executor/commit/7252a47c2022b2e14b916c7c6440386eae467ff3))
+* **deps:** bump aws-sdk-ssm from 1.23.0 to 1.24.0 ([fc9df2b](https://github.com/neochrome/parameter-store-executor/commit/fc9df2b338ff07304c44bba0a4dd6bbb4cc508ac))
+* **deps:** bump aws-sdk-ssm from 1.24.0 to 1.25.0 ([195a5c2](https://github.com/neochrome/parameter-store-executor/commit/195a5c24f3a8f1c9ec567112e81ca073c44cd503))
+* **deps:** bump aws-sdk-ssm from 1.25.0 to 1.26.0 ([b56dca4](https://github.com/neochrome/parameter-store-executor/commit/b56dca449258a48b10848bcb0dd91b6274c420b9))
+* **deps:** bump aws-sdk-ssm from 1.26.0 to 1.27.0 ([64b963b](https://github.com/neochrome/parameter-store-executor/commit/64b963bdebcf3801a66826cc057bebbae95f1eab))
+* **deps:** bump aws-sdk-ssm from 1.27.0 to 1.28.0 ([d979d1b](https://github.com/neochrome/parameter-store-executor/commit/d979d1b43f21a0e5557e69da27d701c5a83a579c))
+* **deps:** bump aws-sdk-ssm from 1.28.0 to 1.29.0 ([08d9f14](https://github.com/neochrome/parameter-store-executor/commit/08d9f14e552c6671706c0976e5eae333f0027d4b))
+* **deps:** bump aws-sdk-ssm from 1.29.0 to 1.30.0 ([88927a2](https://github.com/neochrome/parameter-store-executor/commit/88927a291902e8658e4d1985f9a0825b16144c3d))
+* **deps:** bump rustls from 0.21.10 to 0.21.11 ([fdbf557](https://github.com/neochrome/parameter-store-executor/commit/fdbf5576f0eb73e795f0fbe62d1a4ad06e2a65aa))
+
 ## [0.3.34](https://github.com/neochrome/parameter-store-executor/compare/v0.3.33...v0.3.34) (2024-04-05)
 
 
