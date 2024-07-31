@@ -19,7 +19,7 @@ async fn main() {
         match result {
             Ok(params) => env.params(&params),
             Err(error) => {
-                eprintln!("[ERROR] Reading parameters at `{}`: {}", path, error);
+                eprintln!("[PSE][ERROR] Reading parameters at `{}`: {}", path, error);
                 std::process::exit(1);
             }
         };
