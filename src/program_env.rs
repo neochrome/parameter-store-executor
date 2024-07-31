@@ -15,7 +15,7 @@ impl ProgramEnv {
     pub fn params(&mut self, params: &[Parameter]) -> &mut ProgramEnv {
         for p in params {
             self.params.insert(
-                p.name.to_ascii_uppercase().replace(['-', '/'], "_"),
+                p.name.to_ascii_uppercase().replace(['.', '-', '/'], "_"),
                 p.value.to_string(),
             );
         }
@@ -105,9 +105,17 @@ mod tests {
         let env = ProgramEnv::new()
             .params(&params![("user-name", "user"), ("password", "pass")])
             .params(&params![("password", "override")])
+            .params(&params![("test.token", "test-token")])
             .to_map();
 
-        assert_eq!(env, map![("USER_NAME", "user"), ("PASSWORD", "override")]);
+        assert_eq!(
+            env,
+            map![
+                ("USER_NAME", "user"),
+                ("PASSWORD", "override"),
+                ("TEST_TOKEN", "test-token")
+            ]
+        );
     }
 
     #[test]
