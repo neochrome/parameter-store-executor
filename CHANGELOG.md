@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/neochrome/parameter-store-executor/compare/v0.3.36...v0.4.0) (2024-08-08)
+
+
+### Features
+
+* Add process name in the error message for easy debug ([bc2ea3e](https://github.com/neochrome/parameter-store-executor/commit/bc2ea3e116360419ba93f2c5d71baf6850e11b76))
+
+
+### Bug Fixes
+
+* add . (period) support ([4aa9be9](https://github.com/neochrome/parameter-store-executor/commit/4aa9be958da438811dd8155863a0891a78013292))
+
 ## [0.3.36](https://github.com/neochrome/parameter-store-executor/compare/v0.3.35...v0.3.36) (2024-08-05)
 
 
