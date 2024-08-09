@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/neochrome/parameter-store-executor/compare/v0.4.0...v0.4.1) (2024-08-09)
+
+
+### Bug Fixes
+
+* **deps:** bump clap from 4.5.13 to 4.5.14 ([8782d4c](https://github.com/neochrome/parameter-store-executor/commit/8782d4c8a317b9b7fa158ff72bca7a60c63164c2))
+
 ## [0.4.0](https://github.com/neochrome/parameter-store-executor/compare/v0.3.36...v0.4.0) (2024-08-08)
 
 
