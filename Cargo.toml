@@ -12,7 +12,7 @@ path = "src/main.rs"
 strip = true
 
 [dependencies]
-clap = { version = "4.5.16", features = ["cargo"] }
+clap = { version = "4.5.17", features = ["cargo"] }
 tokio = { version = "1.40.0", features = ["full"] }
 aws-config = { version = "1", features = ["behavior-version-latest"] }
 aws-sdk-ssm = { version = "1" }
