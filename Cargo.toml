@@ -17,6 +17,12 @@ tokio = { version = "1.44.2", features = ["full"] }
 aws-config = { version = "1", features = ["behavior-version-latest"] }
 aws-sdk-ssm = { version = "1" }
 
+[target.arm-unknown-linux-musleabihf.dependencies]
+aws-lc-rs = { version = "*", features = ["bindgen"] }
+
+[target.armv7-unknown-linux-musleabihf.dependencies]
+aws-lc-rs = { version = "*", features = ["bindgen"] }
+
 [dev-dependencies.cargo-husky]
 version = "1"
 default-features = false
