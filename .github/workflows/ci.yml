@@ -55,6 +55,9 @@ jobs:
             target
           key: ${{ runner.os }}-target-${{ matrix.target }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
+      - name: bindgen
+        run: cross install --force --locked bindgen-cli
+
       - name: check formatting
         run: cargo fmt --check
 
