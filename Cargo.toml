@@ -16,6 +16,7 @@ clap = { version = "4.5.35", features = ["cargo"] }
 tokio = { version = "1.44.2", features = ["full"] }
 aws-config = { version = "1", features = ["behavior-version-latest"] }
 aws-sdk-ssm = { version = "1" }
+aws-lc-rs = { version = "*", features = ["bindgen"] }
 
 [dev-dependencies.cargo-husky]
 version = "1"
