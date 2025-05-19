@@ -1423,7 +1423,7 @@ checksum = "4030760ffd992bef45b0ae3f10ce1aba99e33464c90d14dd7c039884963ddc7a"
 
 [[package]]
 name = "parameter-store-executor"
-version = "0.4.4"
+version = "0.4.5"
 dependencies = [
  "aws-config",
  "aws-lc-rs",
