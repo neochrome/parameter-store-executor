@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.4.5](https://github.com/neochrome/parameter-store-executor/compare/v0.4.4...v0.4.5) (2025-05-19)
+
+
+### Bug Fixes
+
+* **deps:** bump aws-config from 1.6.1 to 1.6.2 ([c7b624a](https://github.com/neochrome/parameter-store-executor/commit/c7b624a1fa3e82bad01703cf5d3d0d8149d758e6))
+* **deps:** bump aws-config from 1.6.2 to 1.6.3 ([e4b32c8](https://github.com/neochrome/parameter-store-executor/commit/e4b32c8513063c5b49f09b0c8d0dece356590838))
+* **deps:** bump aws-lc-rs from 1.13.0 to 1.13.1 ([1d050e8](https://github.com/neochrome/parameter-store-executor/commit/1d050e8c5ea899a01ad17f31706b162306537c9a))
+* **deps:** bump aws-sdk-ssm from 1.71.0 to 1.72.0 ([d4fcc08](https://github.com/neochrome/parameter-store-executor/commit/d4fcc08371316f8991237e37e6784fddfaea1fb4))
+* **deps:** bump aws-sdk-ssm from 1.72.0 to 1.73.0 ([b419abe](https://github.com/neochrome/parameter-store-executor/commit/b419abe6628e6ef56a772ea734a5b4def4124bc4))
+* **deps:** bump aws-sdk-ssm from 1.73.0 to 1.74.0 ([4bf2f03](https://github.com/neochrome/parameter-store-executor/commit/4bf2f03471724d292cf98d6c61adfcc3977f5ea5))
+* **deps:** bump aws-sdk-ssm from 1.74.0 to 1.75.0 ([46d8a0c](https://github.com/neochrome/parameter-store-executor/commit/46d8a0c750d9578d780e0f83a3f8f4a99bb658b8))
+* **deps:** bump aws-sdk-ssm from 1.75.0 to 1.76.0 ([30f5e64](https://github.com/neochrome/parameter-store-executor/commit/30f5e64b4fb1fc27be4268f093bc80e5aa54879a))
+* **deps:** bump clap from 4.5.35 to 4.5.36 ([533731e](https://github.com/neochrome/parameter-store-executor/commit/533731ee43bb2e8a17cf1be47a95357985679319))
+* **deps:** bump clap from 4.5.36 to 4.5.37 ([14bbcfd](https://github.com/neochrome/parameter-store-executor/commit/14bbcfdeb8edb0a9b4696333557ffa12000b3119))
+* **deps:** bump clap from 4.5.37 to 4.5.38 ([303ee3e](https://github.com/neochrome/parameter-store-executor/commit/303ee3ed287b468252d83a2971e19f09885d46b7))
+* **deps:** bump tokio from 1.44.2 to 1.45.0 ([d2900a3](https://github.com/neochrome/parameter-store-executor/commit/d2900a33c0b536074220dd8982d1d0510e7d5a96))
+
 ## [0.4.4](https://github.com/neochrome/parameter-store-executor/compare/v0.4.3...v0.4.4) (2025-04-08)
 
 
