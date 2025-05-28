@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.4.6](https://github.com/neochrome/parameter-store-executor/compare/v0.4.5...v0.4.6) (2025-05-28)
+
+
+### Bug Fixes
+
+* **deps:** bump aws-sdk-ssm from 1.76.0 to 1.77.0 ([e3d7f3c](https://github.com/neochrome/parameter-store-executor/commit/e3d7f3c981c35f2f588f6a961f319c55c43b4125))
+* **deps:** bump aws-sdk-ssm from 1.77.0 to 1.78.0 ([c760c25](https://github.com/neochrome/parameter-store-executor/commit/c760c25c2894823882af86b0d83f860365bb2a1b))
+* **deps:** bump aws-sdk-ssm from 1.78.0 to 1.79.0 ([cf2a9e3](https://github.com/neochrome/parameter-store-executor/commit/cf2a9e32041744f916c5d4a0d9567b6c70643fd5))
+* **deps:** bump clap from 4.5.38 to 4.5.39 ([6a369cb](https://github.com/neochrome/parameter-store-executor/commit/6a369cb9f5298329dc908c9435130b1d6c465ae1))
+* **deps:** bump tokio from 1.45.0 to 1.45.1 ([ba3dfbd](https://github.com/neochrome/parameter-store-executor/commit/ba3dfbdcbefa41f41507b24e7020b1768a0c46b1))
+
 ## [0.4.5](https://github.com/neochrome/parameter-store-executor/compare/v0.4.4...v0.4.5) (2025-05-19)
 
 
