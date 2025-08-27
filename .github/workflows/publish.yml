@@ -71,7 +71,7 @@ jobs:
             ~/.cargo/bin/
           key: ${{ runner.os }}-cargo
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: use cached dependencies
         uses: actions/cache@v4
@@ -105,7 +105,7 @@ jobs:
       REPO: ${{ github.repository }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: build args
         id: build-args
