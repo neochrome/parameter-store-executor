@@ -193,9 +193,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-ssm"
-version = "1.138.0"
+version = "1.139.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b97fbd52f5ad80815f4d9b65e0c2175941898c6405dfc1d1b050cebc433e83c5"
+checksum = "d91a0aa74c81cad54022df497aed39339c593a6f9537c542e5ea697ecba9856f"
 dependencies = [
  "arc-swap",
  "aws-credential-types",
